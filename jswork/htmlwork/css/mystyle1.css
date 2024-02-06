@@ -1,0 +1,21 @@
+#box{
+    background-color: #10d0e9;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    color: #0000ff;
+}
+
+#box h1{
+    text-align: center;
+    padding-top: 50px;
+}
+
+#box p{
+    text-align: center;
+}
+
+#box ul li{
+    padding-left: 100px;
+    list-style: none;
+}
