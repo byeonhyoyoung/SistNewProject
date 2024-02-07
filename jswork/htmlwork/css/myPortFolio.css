@@ -1,0 +1,50 @@
+*{
+    box-sizing: border-box; /* 테두리 기준 */
+}
+
+body{
+    background: #222;
+    height: 100%;
+    margin: 0;
+}
+
+#container{
+    position: absolute;
+    left: 50%;
+    margin-left: -450px;
+    width: 900px;
+    height: 100%;
+    background: #fff;
+}
+
+aside{
+    float: left;
+    width: 300px;
+    padding: 100px 50px;
+    height: 100%;
+    background: rgb(193, 227, 255);
+}
+
+aside img{
+    width: 100px;
+    border-radius: 100px;
+}
+
+#detail{
+    position: relative;
+    top: 200px;
+}
+
+/*#sns{
+    position: relative;
+    top: 10px;
+}*/
+
+#main{
+    float: right;
+    width: 600px;
+    height: 100%; /*하단에 놓여있던거 올라옴*/
+    padding-top: 50px;
+    padding-left: 50px;
+}
+
