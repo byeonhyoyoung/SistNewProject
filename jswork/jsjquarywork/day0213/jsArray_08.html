@@ -73,13 +73,13 @@
 
     <h3>배열_new Array()로 지정후 출력_push로 5개 삽입후 출력</h3>
     <script>
-        var imgArr3=new Array(5);
+        var imgArr3=new Array();
 
-        imgArr3[0]='../image/Food/1.jpg';
-        imgArr3[1]='../image/html_img/1.png';
-        imgArr3[2]='../image/logoImg/a.png';
-        imgArr3[3]='../image/jquery_img/01.png';
-        imgArr3[4]='../image/연예인사진/2.jpg';
+        imgArr3.push("../image/Food/1.jpg'");
+        imgArr3.push("../image/html_img/1.png");
+        imgArr3.push("../image/logoImg/a.png");
+        imgArr3.push("../image/jquery_img/01.png");
+        imgArr3.push("../image/연예인사진/2.jpg");
 
         var s="배열개수: "+imgArr3.length+"<br>";
         for(var i=0; i<imgArr3.length; i++)
@@ -93,14 +93,15 @@
     <h3>위의 예제에서 마지막 이미지 2개 지우고 다시 출력</h3>
     <script>
         //이미지 경로를 저장한 배열 생성
-        var imgArr3=['../image/Food/1.jpg',
+        /* var imgArr3=['../image/Food/1.jpg',
         '../image/html_img/1.png',
         '../image/logoImg/a.png',
         '../image/jquery_img/01.png',
-        '../image/연예인사진/2.jpg'];
+        '../image/연예인사진/2.jpg']; */
+        
 
         //배열의 마지막 두 요소 제거
-        imgArr3.pop();
+        imgArr3.pop(); //마지막 사진 꺼내서 없앰
         imgArr3.pop();
 
         var s="배열개수: "+imgArr3.length+"<br>";

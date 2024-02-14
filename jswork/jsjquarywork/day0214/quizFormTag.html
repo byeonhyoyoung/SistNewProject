@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=East+Sea+Dokdo&family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 500px;
+            border: 3px solid gray;
+        }
+
+        th,td{
+            border: 1px solid gray;
+        }
+
+        #result{
+            font-family: 'Gowun Dodum';
+            width: 450px;
+            height: 200px;
+            border: 2px solid gray;
+            margin-top: 20px;
+            padding: 20px 20px;
+            font-size: 25px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+
+            document.getElementById("btnResult").onclick=function(){
+
+                var s="";
+                s="이름: "+document.getElementById("name").value+"<br>";
+                s += "비밀번호: " + document.getElementById("password").value + "<br>";
+
+                var bloodType = document.querySelector('input[name="blood"]:checked');
+                if (bloodType) {
+                    s += "혈액형: " + bloodType.value + "형"+"<br>";
+                }
+
+                var languages = document.querySelectorAll('input[name="lang"]:checked');
+                s += "가능언어: ";
+                if (languages.length > 0) {
+                    languages.forEach(function(lang) {
+                        s += lang.value + ", ";
+                    });
+                    // 마지막 쉼표 제거
+                    s = s.slice(0, -2);
+                } else {
+                    s += "없음";
+                }
+                s += "<br>";
+
+                s += "입사날짜: " + document.getElementById("ipsa").value + "<br>";
+
+
+
+                //혈액형...form의 name을 통해서 접근후 바로 출력가능
+
+                //가능언어는 복수출력 혹은 가능언어없음
+
+                document.getElementById("result").innerHTML=s;
+            }
+
+
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <form>
+        <table>
+            <caption><b>폼태그 출력 과제_개인정보</b></caption>
+            <tr>
+                <th>이름</th>
+                <td>
+                    <input type="text" id="name" size="10" placeholder="이름을 입력하세요">
+                </td>
+            </tr>
+
+            <tr>
+                <th>비밀번호</th>
+                <td>
+                    <input type="password" id="password" size="12" placeholder="비밀번호">
+                </td>
+            </tr>
+
+            <tr>
+                <th>혈액형</th>
+                <td>
+                    <input type="radio" name="blood" value="A">A형
+                    <input type="radio" name="blood" value="B">B형
+                    <input type="radio" name="blood" value="O">O형
+                    <input type="radio" name="blood" value="AB">AB형
+                </td>
+            </tr>
+
+            <tr>
+                <th>가능언어</th>
+                <td>
+                    <input type="checkbox" name="lang" value="C++">C++
+                    <input type="checkbox" name="lang" value="JAVA">JAVA
+                    <input type="checkbox" name="lang" value="Jquery">Jquery
+                    <input type="checkbox" name="lang" value="Spring">Spring
+                </td>
+            </tr>
+
+            <tr>
+                <th>입사날짜</th>
+                <td>
+                    <input type="date" value="2022-01-01" id="ipsa">
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="button" id="btnResult" value="결과출력">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <div id="result">결과출력하는곳</div>
+</body>
+</html>
