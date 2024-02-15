@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload=function(){
+
+            var selImage=document.getElementById("selImage");
+            var photo=document.getElementById("photo");
+
+
+            var init_image=selImage.value; //초기값 이미지와 맞춰주기위해
+            //현재사진의 src속성을 변경해본다
+            photo.setAttribute("src",init_image); //초기값 이미지와 맞춰주기위해
+
+
+            //셀렉트박스 변경시 해당이미지로
+            selImage.onchange=function(){
+
+                //모든 이미지 함수에 이벤트 발생객체에 대한 this라는 변수가 기본으로 존재
+                console.log(this.value);
+
+                //photo의 src라는 변수에 this.value를 적용
+                photo.setAttribute("src",this.value); //src라는 속성 this.value로 바꿀거야 
+            }
+
+            //점점작게 이벤트
+            document.getElementById("btnsmall").onclick=function()
+            {
+                //photo의 현재 width값 얻기
+                var w=photo.getAttribute("width");
+                w-=10;
+                photo.setAttribute("width",w);
+            }
+
+
+            //점점크게 이벤트
+            document.getElementById("btnlarge").onclick=function()
+            {
+                //photo의 현재 width값 얻기
+                var w=parseInt(photo.getAttribute("width"));
+                w+=10;
+                photo.setAttribute("width",w);
+            }
+            
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <button type="button" id="btnsmall">점점작게</button>
+        <button type="button" id="btnlarge">점점크게</button>
+        <b style="margin-left: 20px;">사진선택</b>
+        <select id="selImage">
+            <option value="../image/Food/1.jpg">음식 1</option>
+            <option value="../image/Food/2.jpg" selected>음식 2</option>
+            <option value="../image/Food/3.jpg">음식 3</option>
+            <option value="../image/Food/4.jpg">음식 4</option>
+        </select>
+    </div>
+
+    <div>
+        <img src="../image/Food/1.jpg" id="photo" width="300">
+    </div>
+</body>
+</html>
