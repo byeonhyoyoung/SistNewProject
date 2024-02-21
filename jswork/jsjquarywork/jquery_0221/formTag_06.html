@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=East+Sea+Dokdo&family=Gowun+Dodum&family=IBM+Plex+Sans+KR&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <title>Document</title>
+    <style>
+        #result{
+            width: 500px;
+            height: 300px;
+            border: 2px solid gray;
+            padding: 10px 10px;
+            font-size: 25px;
+        }
+    </style>
+
+    <script>
+        $(function(){
+
+            $("#btnshow").keyup(function(){
+                
+                var s="";
+
+                s += "이름: " + $("#myname").val()+"<br>";
+                s += "성별: " + ($("input[name='chkgender']:checked").length > 0 ? $("input[name='chkgender']:checked").val() : "선택 안 함") + "<br>";
+                s += "생년월일: " + $("#mybirth").val() + "<br>";
+                s += "거주지: " + $("input[name='hometown']:checked").val() + "<br>";
+                s += "취미: ";
+                $("input[name='hoby']:checked").each(function(){
+                    s += $(this).val() + ", ";
+                });
+                s = s.slice(0, -2) + "<br>"; // 마지막에 추가된 ", " 제거
+                s += "글꼴선택: " + $("#selfont").val() + "<br>";
+
+                $("#result").html(s);
+            });
+        });
+    </script>
+</head>
+<body>
+    <form>
+        <legend>폼태그 복습</legend>
+        <table class="table table-bordered" style="width: 500px;">
+            <tr>
+                <th class="table-success">이름</th>
+                <td>
+                    <input type="text" class="form-control" id="myname" style="width: 150px;">
+                </td>
+            </tr>
+
+            <tr>
+                <th class="table-success">성별</th>
+                <td>
+                    <label><input type="checkbox" name="chkgender" value="남자">&nbsp;남자</label>
+                    <label><input type="checkbox" name="chkgender" value="여자">&nbsp;여자</label>
+                </td>
+            </tr>            
+
+            <tr>
+                <th class="table-success">생년월일</th>
+                <td>
+                    <label><input type="date" id="mybirth"></label>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="table-success">거주지</th>
+                <td>
+                    <label><input type="radio" name="hometown" value="서울" checked>&nbsp;서울</label>
+                    <label><input type="radio" name="hometown" value="경기">&nbsp;경기</label>
+                    <label><input type="radio" name="hometown" value="인천">&nbsp;인천</label>
+                    <label><input type="radio" name="hometown" value="부산">&nbsp;부산</label>
+                    <label><input type="radio" name="hometown" value="제주">&nbsp;제주</label>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="table-success">취미</th>
+                <td>
+                    <label><input type="checkbox" name="hoby" value="게임" checked>&nbsp;게임</label>
+                    <label><input type="checkbox" name="hoby" value="여행">&nbsp;여행</label>
+                    <label><input type="checkbox" name="hoby" value="코딩">&nbsp;코딩</label>
+                    <label><input type="checkbox" name="hoby" value="넷플릭스">&nbsp;넷플릭스</label>
+                    <label><input type="checkbox" name="hoby" value="공부">&nbsp;공부</label>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="table-success">글꼴선택</th>
+                <td>
+                    <select id="selfont">
+                        <option>Dongle</option>
+                        <option>East Sea Dokdo</option>
+                        <option>Gowun Dodum</option>
+                        <option>IBM Plex Sans KR</option>
+                        <option>Noto Serif KR</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="button" class="btn btn-success" id="btnshow">결과출력</button>
+                </td>
+            </tr>
+        </table>
+
+        <div id="result"></div>
+    </form>
+</body>
+</html>
