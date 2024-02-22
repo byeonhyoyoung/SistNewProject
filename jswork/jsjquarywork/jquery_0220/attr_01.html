@@ -40,7 +40,7 @@
                 var curName = $(this).attr("src");
 
                 //너비(width)값을 가져온다
-                var curW = $(this).css("width");
+                var curW = $(this).attr("width");
 
                 //3번 인덱스의 이미지 적용
                 $("img:eq(3)").attr("src", curName).css("width", curW);
@@ -49,7 +49,7 @@
                 //append : 특정태그 이후에 추가하기
                 //after : 특정태그 아래 안으로 추가하기
                 var curIrum = $(this).attr("irum");
-                $("img:eq(3)").after("<b>" + curIrum + "</b>");
+                $("img:eq(3)").after("<b>" + curIrum + "</b><br>");
 
             });
 

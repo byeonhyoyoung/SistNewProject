@@ -43,14 +43,14 @@
         })
 
 
-        $("ol>li").each(function(idx){
-            $(this).addClass("hightlight_"+idx);
-        })
-
-        // $("ol li").addClass(function(idx){
-
-        //     return "hightlight_"+idx;
+        // $("ol>li").each(function(idx){
+        //     $(this).addClass("hightlight_"+idx);
         // })
+
+        $("ol li").addClass(function(idx){
+
+            return "hightlight_"+idx;
+        })
         
     </script>
 </body>

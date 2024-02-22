@@ -11,7 +11,10 @@
         $(function(){
 
             //1. h3>b 태그 글자색을 green으로 변경하고 배경색을 #ffddff로 변경
-            $("h3>b").css("color","green").css("background-color","#ffddff");
+            $("h3>b").css({
+                "color":"green",
+                "background-color":"#ffddff"
+            });
 
             //2. 모든 h3 width:400px / border:2px inset orange / magin bottom 10px로 변경
             $("h3").css({
@@ -21,7 +24,7 @@
             });
 
             //3. 모든 span 글꼴을 Dongle로 변경하고 글자색 purple로 변경
-            $("h3>b>span").css({
+            $("h3>span").css({
                 "font-family":"Dongle",
                 "color":"purple"
             });

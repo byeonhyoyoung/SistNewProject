@@ -44,12 +44,12 @@
             //값들 얻어주기
             var selSrc=$(this).attr("src");
             var selW=$(this).attr("width");
-            var selTitle=$(this).attr("title");
-            selIrum=$(this).attr("irum");
+            selTitle=$(this).attr("title");
+           // selIrum=$(this).attr("irum");
 
             //사진넣기
             var copyImg="<img src='"+selSrc+"' width="+selW+">";
-            $("hr.sungjun").after(copyImg);
+            $("hr.sekyung").after(copyImg);
 
             //title을 복사해서 
             $("div").html(selTitle).css({

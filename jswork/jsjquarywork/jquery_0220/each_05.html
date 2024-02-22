@@ -14,7 +14,7 @@
         .bg_3{background-color: green; color: red;}
         .bg_4{background-color: blue; color: white;}
 
-        ul li{width: 200px;}
+        ul li{width: 150px;}
     </style>
 </head>
 <body>
@@ -60,7 +60,13 @@
             $(this).after("<b>****</b>");
         });
 
-        $("ul li")
+        $("ul li").mouseout(function(){
+             //find: 하나상위로 올라가서 찾을때..하위태그 b태그를 찾아서 제거
+            // $(this).find("b").remove();
+
+            //현재이벤트 발생하는 li태그 다음태그를 제거
+            $(this).next().remove();
+        })
 
 
     </script>
