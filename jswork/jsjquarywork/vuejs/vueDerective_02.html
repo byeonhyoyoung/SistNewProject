@@ -19,7 +19,7 @@
         <p v-show="flag">지금 flag는 true입니다</p> <!-- v-if, v-show 비슷 -->
         <!-- item in items -->
         <ul>
-            <li v-for="system in systems">{{system}}</li>
+            <li v-for="system in systems">{{sys}}</li>
         </ul>
 
         <!-- 클릭 이벤트 -->
@@ -27,9 +27,9 @@
         <!-- <button type="button" @click="popupAlert">경고창</button> -->
 
         <!-- bs 버튼이벤트 -->
-        <button type="button" class="btn btn-info" v-on:click="eventFunc1">버튼 이벤트 연습_#1</button>
-        <button type="button" class="btn btn-danger" v-on:click="eventFunc2('Happy',200)">버튼 이벤트 연습_#2</button>
-        <button type="button" class="btn btn-warning" v-on:click="eventFunc3()">버튼 이벤트 연습_#3</button>
+        <button type="button" class="btn btn-info" v-on:click="eventFunc1(200)">버튼 이벤트 연습_#1</button>
+        <button type="button" class="btn btn-danger" v-on:click="eventFunc2('Happy',200)">버튼 이벤트 연습_#1</button>
+        <button type="button" class="btn btn-warning" v-on:click="eventFunc3()">버튼 이벤트 연습_#1</button>
 
         <!-- 클릭이벤트 -->
         <button type="button" v-on:click="counter++">Counter: {{counter}}</button>

@@ -56,16 +56,16 @@
         $(function(){
 
             //벽지 이미지 클릭하면
-            $("div.wall ul.list li img").click(function(){
+            $(".list li img").click(function(){
 
-                
-                //현재클릭한 이미지의 부모li에 active클래스 추가
+                //현재클릭한 이미지 의 부모 li에  active클래스 추가
                 $(this).parent().addClass("active");
 
-                //부모태그의 형제에 들어있는 active제거
-                $(this).parent().siblings().removeClass("active"); //.parent()->li .siblings()->li들         
+                //부모태그의 형제에 들어있는 active 제거
+                $(this).parent().siblings().removeClass("active");
 
-                //클릭한 이미지에서 title속성 얻기
+
+                //클릭한 이미지 title속성 얻기
                 var title=$(this).attr("title");
 
                 //h1.title에 넣기
@@ -75,7 +75,7 @@
                 var imgSrc=$(this).attr("src");
 
                 //얻은 mgSrc를 div.wall에 배경이미지
-                $("div.wall").css("background-image","url('"+imgSrc+")");
+                $("div.wall").css("background-image","url('"+imgSrc+"')");
 
             })
            

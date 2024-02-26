@@ -21,46 +21,47 @@
             $("img.photo").click(function(){
                 //사진얻어서 modal에 사진넣기
                 var photoSrc=$(this).attr("src");
-                //부모 td앞의 제목가져오기 
-                var title=$(this).parent().prev().text();
+                //부모td앞의 제목 가져오기
+                var title= $(this).parent().prev().text();
 
                 //가져온걸 모달에 적용
                 $("img.modal_photo").attr("src",photoSrc);
                 $(".modal_title").text(title);
+
             })
         })
     </script>
-</head>
-<body>
+    </head>
+    <body>
 
-            <!-- The Modal -->
-            <div class="modal" id="myShopModal">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-              
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <h4 class="modal-title">상품 상세보기</h4>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-              
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <img src="" class="modal-photo">
+    <!-- The Modal -->
+    <div class="modal" id="myShopModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+    
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">상품 상세보기</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+            <!-- Modal body -->
+            <div class="modal-body">
+            <img src="" class="modal_photo">
 
-                        <br>
+            <br>
 
-                        <h3 class="modal-title">상품명...</h3>
-                    </div>
-              
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    </div>
-              
-                  </div>
-                </div>
-              </div>
+            <h3 class="modal_title">상품명....</h3>
+            </div>
+    
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+    
+        </div>
+        </div>
+    </div>
 
     <table class="table table-striped" style="width: 300px;">
         <thead>
@@ -79,10 +80,9 @@
                     {"title":"쁘띠 스카프","photo":"../image/쇼핑몰사진/10.jpg"},
                     {"title":"드라이빙슈즈","photo":"../image/쇼핑몰사진/11.jpg"},
                     {"title":"핸드폰장식","photo":"../image/쇼핑몰사진/18.jpg"},
-                    {"title":"진주팔찌","photo":"../image/쇼핑몰사진/20jpg"},
+                    {"title":"진주팔찌","photo":"../image/쇼핑몰사진/20.jpg"},
                     {"title":"썬캡","photo":"../image/쇼핑몰사진/29.jpg"},
                     {"title":"헤어밴드","photo":"../image/쇼핑몰사진/30.jpg"}
-
                 ];
 
                 $.each(shop_data,function(idx,item){
@@ -90,12 +90,13 @@
                     var s="<tr>";
                         s+="<td>"+(idx+1)+"</td>";
                         s+="<td>"+item.title+"</td>";
-                        s+="<td?<img src='"+item.photo+"' class='photo' data-bs-toggle='modal' data-bs-target='#myShopModal'></td>";
+                        s+="<td><img src='"+item.photo+"' class='photo' data-bs-toggle='modal' data-bs-target='#myShopModal'></td>";
                         s+="</tr>";
+
+                        document.write(s);
                 })
             </script>
         </tbody>
-
     </table>
 </body>
 </html>

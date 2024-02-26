@@ -98,6 +98,7 @@
                 //$(".sunban img").eq(1).is(":hidden")==>true/false
                 // console.log(n);
                 // console.log($(".sunban img").eq(1).is(":hidden"));
+
                 if($(".sunban img").eq(n).is("hidden")){
                     $("#game_msg").html((n+1)+"번째 미니언즈는 이미 처리되었습니다.");
                 }else{
@@ -122,6 +123,7 @@
 
                 //지폐 클릭시 해당지폐 사라지게 하면서
                 //12개의 미니언즈 다시보이고 메세지창 지워지기
+                
                 $(".money img").click(function(){
                     $(this).hide();
                     $(".sunban img").show();
