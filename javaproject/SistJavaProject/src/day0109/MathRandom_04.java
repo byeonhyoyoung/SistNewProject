@@ -23,7 +23,7 @@ public class MathRandom_04 {
 		}
 		
 		System.out.println("-----------------------");
-		System.out.println("0~9 사이의 랜덤수 5개 발생");
+		System.out.println("0~99 사이의 랜덤수 5개 발생");
 		for(int i=1;i<=5;i++)
 		{
 			int a=(int)(Math.random()*100); //0~99
