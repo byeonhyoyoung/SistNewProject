@@ -14,14 +14,14 @@
 id="btn1">data1.xml</button>
 <button type="button" class="btn btn-success"
 id="btn2">data1.json</button>
-<br>
-<div id="result">파일들 출력...</div>
+<br><br>
+<div id="result">파일들 출력....</div>
 
 <script type="text/javascript">
-	$("#btn1").click(function() {
+	$("#btn1").click(function(){
 		
 		
-		$("#result").empty(); //클릭시마다 중첩안되게 비워주기
+		$("#result").empty(); //클릭시마다 중첩안되게 비워주시
 		//xml읽기
 		$.ajax({
 			type:"get",
@@ -31,49 +31,50 @@ id="btn2">data1.json</button>
 				
 				var s="City: "+$(res).find("name").attr("city")+"<br>";
 				s+="Name: "+$(res).find("name").text()+"<br>";
-				s+="age: "+$(res).find("age").text()+"<br>";
+				s+="Age: "+$(res).find("age").text()+"<br>";
 				
 				$("#result").append(s);
 			},
 			statusCode:{
 				404:function(){
-					alert("xml파일을 찾을 수 없어요.");
+					alert("xml파일을 찾을수 없어요");
 				},
 				500:function(){
-					alert("서버오류..코드 다시한번 살펴보세요.");
+					alert("서버오류...코드 다시한번 살펴보세요");
 				}
 			}
 		})
 	});
 	
+	
 	$("#btn2").click(function(){
 		
-		 $("#result").empty();
-		 
-		 //json읽기
-		 $.ajax({
-			 type:"get",
-			 url:"data1.json",
-			 dataType:"json",
-			 success:function(data){
-				 
-				 var s="";
-				 s+="이름: "+data.name+"<br>";
-				 s+="주소: "+data.addr+"<br>";
-				 s+="점수: "+data.score+"점";
-				 
-				 $("#result").append(s);
-				 
-			 },
-			 statusCode:{
-				 404:function(){
-					 alert("json파일 찾을 수 없어요.");
-				 },
-				 500:function(){
-					 alert("서버오류...오타 찾아볼것!!!");
-				 }
-			 }
-		 })
+		$("#result").empty();
+		
+		//json읽기
+		$.ajax({
+			type:"get",
+			url:"data1.json",
+			dataType:"json",
+			success:function(data){
+				
+				var s="";
+				s+="이름: "+data.name+"<br>";
+				s+="주소: "+data.addr+"<br>";
+				s+="점수 "+data.score+"점";
+				
+				$("#result").append(s);
+				
+			},
+			statusCode:{
+				404:function(){
+					alert("json파일 찾을수 없어요");
+				},
+				500:function(){
+					alert("서버오류...오타 찾아볼것!!!");
+				}
+			}
+		})
 	});
 </script>
 

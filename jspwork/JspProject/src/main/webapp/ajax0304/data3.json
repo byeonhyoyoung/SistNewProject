@@ -1,5 +1,5 @@
 [
-	{"name":"kim","city":"seoul","hp":"010-111-2222","datailaddr":"길동"},
+	{"name":"kim","city":"seoul","hp":"010-111-2222","detailaddr":"길동"},
 	{"name":"lee","city":"incheon","hp":"010-222-3333"},
-	{"name":"park","city":"daegu","hp":"010-777-8888","datailaddr":"만천동"}
+	{"name":"park","city":"daegu","hp":"010-777-8888","detailaddr":"만천동"}
 ]

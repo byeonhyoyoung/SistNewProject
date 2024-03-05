@@ -10,7 +10,8 @@
 <data>
 <%
 
-//
+//mysql의 team테이블이 데이타를 읽어서 xml방식으로 출력
+
 	DbConnect db=new DbConnect();
  	Connection conn=db.getConnection();
  	PreparedStatement pstmt=null;

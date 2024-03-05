@@ -12,22 +12,25 @@
 	DbConnect db=new DbConnect();
 	Connection conn=db.getConnection();
 	PreparedStatement pstmt=null;
-	ResultSet rs=null;
+	ResultSet rs=null; //조회
 	
-	String sql="select * from food order by num";
+	String sql="select * from food order by num"; //number의 오름차순으로 조회
 	
 	
 	try{
 		pstmt=conn.prepareStatement(sql);
 		rs=pstmt.executeQuery();
 		
-		while(rs.next())
+		while(rs.next()) //전체조회 while문
 		{
 			String num=rs.getString("num");
 			String foodname=rs.getString("foodname");
 			String foodphoto=rs.getString("foodphoto");
-			String price=rs.getString("price");
-			String cnt=rs.getString("cnt");
+			int price=rs.getInt("price");
+			int cnt=rs.getInt("cnt");
+			
+			//자바를 닫고 data3.xml 보여지도록
+			//food=table, name이라는 속성
 			%>
 			
 			<food num="<%=num %>">
