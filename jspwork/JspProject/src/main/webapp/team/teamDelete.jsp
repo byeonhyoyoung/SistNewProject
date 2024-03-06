@@ -1,3 +1,4 @@
+<%@page import="team.model.TeamDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,18 +12,18 @@
 </head>
 <body>
 <%
-	request.setCharacterEncoding("utf-8");
-
-	String name=request.getParameter("name");
-	String ipsadate=request.getParameter("ipsadate");
-	String lunch=request.getParameter("lunch");
-	String[] suggests=request.getParameterValues("suggest");
+	//num
+	String num=request.getParameter("num");
+	
+	//dao선언
+	TeamDao dao=new TeamDao();
+	
+	//삭제 메서드 호출
+	dao.deleteTeam(num);
+	
+	//리스트로 이동
+	response.sendRedirect("teamList.jsp");
 %>
-
-<h3 class="alert alert-danger">결과값 출력</h3>
-	사원명 : <%=name %><br>
-	입사 일자 : <%=ipsadate %><br>
-	오늘 점심메뉴 : <%=lunch %>&nbsp;<img src="../image/Food/10.jpg" style="width:100px"><br>
 
 </body>
 </html>

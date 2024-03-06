@@ -1,3 +1,5 @@
+<%@page import="intro.model.IntroDao"%>
+<%@page import="intro.model.IntroDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,16 +15,23 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
+	IntroDao dao=new IntroDao();
+
 	String name=request.getParameter("name");
-	String ipsadate=request.getParameter("ipsadate");
-	String lunch=request.getParameter("lunch");
-	String[] suggests=request.getParameterValues("suggest");
+	String age=request.getParameter("age");
+	String birthday=request.getParameter("birthday");
+	String hometown=request.getParameter("hometown");
+	String[] hobby=request.getParameterValues("hobby");
+	String memo=request.getParameter("memo");
+	
+	//dto 선언
+	IntroDto dto=new IntroDto();
+	
+	//IntroDto.set
+	
+	
+	
+	
 %>
-
-<h3 class="alert alert-danger">결과값 출력</h3>
-	사원명 : <%=name %><br>
-	입사 일자 : <%=ipsadate %><br>
-	오늘 점심메뉴 : <%=lunch %>&nbsp;<img src="../image/Food/10.jpg" style="width:100px"><br>
-
 </body>
 </html>

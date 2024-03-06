@@ -10,19 +10,5 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-	request.setCharacterEncoding("utf-8");
-
-	String name=request.getParameter("name");
-	String ipsadate=request.getParameter("ipsadate");
-	String lunch=request.getParameter("lunch");
-	String[] suggests=request.getParameterValues("suggest");
-%>
-
-<h3 class="alert alert-danger">결과값 출력</h3>
-	사원명 : <%=name %><br>
-	입사 일자 : <%=ipsadate %><br>
-	오늘 점심메뉴 : <%=lunch %>&nbsp;<img src="../image/Food/10.jpg" style="width:100px"><br>
-
 </body>
 </html>

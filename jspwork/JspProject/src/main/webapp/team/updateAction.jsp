@@ -12,17 +12,21 @@
 <body>
 <%
 	request.setCharacterEncoding("utf-8");
-
-	String name=request.getParameter("name");
-	String ipsadate=request.getParameter("ipsadate");
-	String lunch=request.getParameter("lunch");
-	String[] suggests=request.getParameterValues("suggest");
+	String driver=request.getParameter("driver");
 %>
 
-<h3 class="alert alert-danger">결과값 출력</h3>
-	사원명 : <%=name %><br>
-	입사 일자 : <%=ipsadate %><br>
-	오늘 점심메뉴 : <%=lunch %>&nbsp;<img src="../image/Food/10.jpg" style="width:100px"><br>
+<jsp:useBean id="dao" class="team.model.TeamDao"/>
+<jsp:useBean id="dto" class="team.model.TeamDto"/>
+<jsp:setProperty property="*" name="dto"/>
 
+<%
+	dto.setDriver(driver==null?"없음":"있음");
+	
+	//update
+	dao.updateTeam(dto);
+	
+	//목록으로 이동
+	response.sendRedirect("teamList.jsp");
+%>
 </body>
 </html>

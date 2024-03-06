@@ -13,5 +13,5 @@
 	ob.put("price",price);
 	ob.put("color",color);
 %>
-
+<!-- json방식으로 .. -->
 <%=ob.toString() %>
