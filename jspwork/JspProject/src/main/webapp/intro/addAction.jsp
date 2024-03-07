@@ -1,7 +1,5 @@
-<%@page import="intro.model.IntroDao"%>
-<%@page import="intro.model.IntroDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,25 +11,33 @@
 </head>
 <body>
 <%
-	request.setCharacterEncoding("utf-8");
+  request.setCharacterEncoding("utf-8");
+%>
+<jsp:useBean id="dao" class="intro.model.IntroDao"/>
+<jsp:useBean id="dto" class="intro.model.IntroDto"/>
+<jsp:setProperty property="*" name="dto"/>
 
-	IntroDao dao=new IntroDao();
+<%
+  String [] hobby=request.getParameterValues("hobby");
 
-	String name=request.getParameter("name");
-	String age=request.getParameter("age");
-	String birthday=request.getParameter("birthday");
-	String hometown=request.getParameter("hometown");
-	String[] hobby=request.getParameterValues("hobby");
-	String memo=request.getParameter("memo");
-	
-	//dto 선언
-	IntroDto dto=new IntroDto();
-	
-	//IntroDto.set
-	
-	
-	
-	
+  String myhobby="";
+  
+  if(hobby==null)
+	  myhobby="no";
+  else{
+	  for(int i=0;i<hobby.length;i++){
+		  myhobby+=hobby[i]+",";
+	  }
+	  
+	  myhobby=myhobby.substring(0,myhobby.length()-1);
+  }
+  
+  dto.setHobby(myhobby);
+  
+  dao.insertIntro(dto);
+  
+  response.sendRedirect("introList.jsp");
+  
 %>
 </body>
 </html>
