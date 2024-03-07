@@ -11,18 +11,17 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
-<!-- addForm 불러와서 수정 -->
 <%
-	String num=request.getParameter("num");
-	IntroDao dao=new IntroDao();
-	IntroDto dto=dao.getOneData(num);
+  String num=request.getParameter("num");
+  IntroDao dao=new IntroDao();
+  IntroDto dto=dao.getOneData(num);
 %>
 <body>
 <div style="margin: 30px 50px;">
    <form action="updateAction.jsp" method="post">
-   <input type="hidden" name="num" value="<%=num%>">
+     <input type="hidden" name="num" value="<%=num%>">
      <table class="table table-bordered" style="width: 600px;">
-        <caption align="top"><h2><%=dto.getName() %>님의 자기소개 수정</h2></caption>
+        <caption align="top"><h2 class="alert alert-info"><%=dto.getName() %>님의  자기소개 수정</h2></caption>
         <tr>
           <th >이름</th>
           <td>
@@ -34,14 +33,14 @@
         <tr>
           <th >나이</th>
           <td>
-            <input type="number" name="age" class="form-control" value="20" style="width: 80px;">
+            <input type="number" name="age" class="form-control" value="<%=dto.getAge() %>" style="width: 80px;">
           </td>
         </tr>
         
         <tr>
           <th >생년월일</th>
           <td>
-            <input type="date" name="birthday" class="form-control" value="1997-02-25" style="width: 200px;">
+            <input type="date" name="birthday" class="form-control" value="<%=dto.getBirthday() %>" style="width: 200px;">
           </td>
         </tr>
         
@@ -64,7 +63,7 @@
         <tr>
           <th >취미</th>
           <td>
-            <label><input type="checkbox" name="hobby" value="게임"
+            <label><input type="checkbox" name="hobby" value="게임" 
             <%=dto.getHobby().contains("게임")?"checked":"" %>>게임</label>
             <label><input type="checkbox" name="hobby" value="넷플릭스"
             <%=dto.getHobby().contains("넷플릭스")?"checked":"" %>>넷플릭스</label>

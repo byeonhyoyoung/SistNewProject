@@ -54,9 +54,9 @@
          }
        %>
     </table>
-
-	<button type="button" class="btn btn-info" style="width: 100px;"
-	onclick="location.href='addForm.jsp'">추가폼</button>
+    
+    <button type="button" class="btn btn-info" style="width: 100px;"
+    onclick="location.href='addForm.jsp'">추가폼</button>
  </div>
 </body>
 </html>

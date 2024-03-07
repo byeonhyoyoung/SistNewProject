@@ -80,6 +80,7 @@ public class IntroDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
+		
 		return list;
 	}
 	
@@ -108,13 +109,15 @@ public class IntroDao {
 				dto.setHometown(rs.getString("hometown"));
 				dto.setMemo(rs.getString("memo"));
 				dto.setAge(rs.getString("age"));
+				
 			}
-			
-		}catch(SQLException e){
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			db.dbClose(rs, pstmt, conn);
 		}
+		
 		
 		return dto;
 		
@@ -150,17 +153,16 @@ public class IntroDao {
 		
 		String sql="delete from intro where num=?";
 		
-		
-			try {
-				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1, num);
-				pstmt.execute();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				db.dbClose(pstmt, conn);
-			}
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(pstmt, conn);
+		}
 			
 	}
 	

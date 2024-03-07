@@ -10,6 +10,7 @@ public class IntroDto {
 	private String hobby;
 	private String memo;
 	
+	
 	public String getNum() {
 		return num;
 	}
