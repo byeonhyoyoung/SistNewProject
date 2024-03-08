@@ -24,7 +24,7 @@ public class IntroDao {
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
-			//?순서대로 바인딩
+			//Dto에서 값을 가져와 순서대로 바인딩
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getAge());
 			pstmt.setString(3, dto.getBirthday());
@@ -43,6 +43,7 @@ public class IntroDao {
 	}
 	
 	//전체조회
+	//getAllDatas: 데이터베이스에서 모든 데이터를 검색하는 메서드
 	public List<IntroDto> getAllDatas()
 	{
 		List<IntroDto> list=new Vector<IntroDto>();
@@ -57,6 +58,7 @@ public class IntroDao {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			
+			//결과를 반복문을 통해 Dto에 설정한 후 리스트에 추가
 			while(rs.next())
 			{
 				IntroDto dto=new IntroDto();
@@ -85,6 +87,7 @@ public class IntroDao {
 	}
 	
 	//detailView..num에 해당하는 하나의 dto반환
+	//getOneData: 특정 번호에 해당하는 데이터를 검색하는 메서드
 	public IntroDto getOneData(String num)
 	{
 		IntroDto dto=new IntroDto();
@@ -139,6 +142,8 @@ public class IntroDao {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally {
+				db.dbClose(pstmt, conn);
 			}
 			
 	}

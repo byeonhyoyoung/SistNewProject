@@ -12,10 +12,10 @@
 </head>
 <body>
 <%
-  String num=request.getParameter("num");
-IntroDao dao=new IntroDao();
-dao.deleteIntro(num);
-response.sendRedirect("introList.jsp");
+	String num=request.getParameter("num");
+	IntroDao dao=new IntroDao();
+	dao.deleteIntro(num);
+	response.sendRedirect("introList.jsp");
 %>
 </body>
 </html>

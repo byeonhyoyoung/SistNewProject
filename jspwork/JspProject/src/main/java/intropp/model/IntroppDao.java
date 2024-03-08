@@ -62,6 +62,11 @@ public class IntroppDao {
 				{
 					IntroppDto dto=new IntroppDto();
 					
+					dto.setNum(rs.getString("num"));
+					dto.setName(rs.getString("name"));
+					
+					
+					
 					
 					
 				}

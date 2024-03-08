@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -25,7 +26,7 @@
 		text-align: center;
 	}
 	
-	div.addform{
+	div.addform, div.updateform{
 		left: 100px;
 		top: 150px;
 		width: 500px;
@@ -58,7 +59,15 @@
 		color: #bbb;
 		float: rigth;
 	}
-	pre.cont{font-family: 'Nanum Pen Script';  font-size: 18px;}
+	pre.cont{
+		font-family: 'Nanum Pen Script';  
+		font-size: 20px; 
+		padding-left: 20px;
+	}
+	
+  	i.edit,i.del{
+    	float: right;
+  	}
 </style>
 
 <!-- 전반적일때 스크립트 위치 -->
@@ -69,9 +78,13 @@
 		
 		//처음에 추가폼 없는상태로
 		$("div.addform").hide();
+		//업데이트폼도 없는 상태여야한다
+		$("div.updateform").hide();
 		
-		//버튼누르면 추가폼 나오고 사라지게
+		
+		//버튼누르면 (방명록)추가폼 나오고 사라지게
 		$("#btnadd").click(function(){
+			$("div.updateform").hide();
 			$("div.addform").slideToggle();
 		});
 		
@@ -117,6 +130,92 @@
 				}
 			})
 		});
+		
+		//삭제(동적메서드로..)
+		$(document).on("click","i.del", function(){
+			
+			//alert("click");
+					
+			var num=$(this).attr("num"); //삭제할 방명록의 번호를 가져온다
+			//alert(num); //꼭 확인해보기!
+			
+			$.ajax({
+				type:'get',
+				dataType: 'html',
+				url:'worldDelete.jsp', //삭제를 처리할 서버측 스크립트의 url을 지정한다
+				data:{"num":num}, //삭제할 방명록의 번호를 서버로 전달한다
+				success:function(){
+					list(); //삭제 성공시 목록을 다시 호출한다
+					//alert('삭제되었습니다.');
+				}
+			});
+		});
+		
+		//수정시 아바타 선택시 값변경
+		$("img.uavata").click(function(){
+			$(this).siblings().removeClass("select");
+  			$(this).addClass("select");
+	  		$("#uavata").val($(this).attr("src"));
+		});
+		
+		
+		//목록의 수정버튼
+		$(document).on("click","i.edit",function(){
+			
+			var num=$(this).attr("num");
+			//alert(num);
+			//폼의 unum에 num넣기
+			$("#unum").val(num); //<-중요!
+			
+			$.ajax({
+				type:"get",
+				url:"worldGetData.jsp",
+				dataType:'json',
+				data:{"num":num},
+				success:function(res){
+					
+					//수정폼 태그안에 넣어준다
+					$("#unum").val(res.num);
+					$("#uwriter").val(res.writer);
+					$("#ucontent").val(res.content);
+					$("#uavata").val(res.avata);
+					
+					//해당이미지에 select클래스 추가
+					$("img.uavata").each(function(i,ele){
+						
+						if($(this).attr("src")==res.avata)
+							$(this).addClass("select");
+						else
+							$(this).removeClass("select");
+					})
+					
+					//혹시라도 추가폼이 있으면 숨기고 수정폼을 나타낸다(수정폼으로 변환)
+					$("div.addform").hide();
+					$("div.updateform").show();
+					
+				}
+			})
+		});
+		
+		//수정
+		$("#dbUpdate").click(function(){
+			
+			var data=$("#updatefrm").serialize();
+			//alert(data); //넘어온거 봤으니 ajax 처리해주자
+			
+			$.ajax({
+				type:"post",
+				dataType:"html",
+				url:"worldUpdate.jsp",
+				data:data,
+				success:function(){
+					//수정성공시 목록 다시호출
+					list();
+				}
+				
+			})
+		});
+		
 	})
 	
 	//사용자 함수 list
@@ -145,6 +244,8 @@
 						  s+="<img src='"+elt.avata+"' align='right' width='80'>";
 						  s+="</pre>";
 						  s+="</td></tr>";
+						  s+="<i class='bi bi-pencil-square edit' num="+elt.num+"></i>";
+						  s+="<i class='bi bi-trash del' num="+elt.num+"></i>";
 						  s+="</table><br>";
 					  })
 				  }
@@ -209,6 +310,57 @@
     </form>
 	</div>
 	
+	
+	<div class="hello updateform">
+	    <form id="updatefrm">
+	    <!-- hidden :num 항상보내기 수정폼에서 가장중요함!!! -->
+	    <input type="hidden" name="unum" id="unum" value=""> 
+       <table class="table table-bordered">
+          <caption align="top"><b>방명록수정</b></caption>
+            <tr>
+              <th>작성자</th>
+              <td>
+                <input type="text" class="form-control input-sm"
+                name="uwriter" id="uwriter" style="width: 120px;">
+              </td>
+              
+            </tr>
+            <tr>
+              <th>남기는말</th>
+              <td>
+                <textarea style="width: 300px; height: 100px;"
+                class="form-control" name="ucontent" id="ucontent"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <th>아바타</th>
+              <td>
+                 <input type="hidden" name="uavata" id="uavata">
+                 <script type="text/javascript">
+                   var s="";
+                   for(var i=1;i<=10;i++){
+                   	s+="<img src='../image/avata/b"+i+".png' width='50' class='uavata'>";
+                   	
+                   	if(i==5)
+                   		s+="<br>";
+                   }
+                   
+                   document.write(s);
+                 </script>
+              </td>
+            </tr>
+            
+            <tr>
+              <td colspan="2" align="center">
+                <button type="button" class="btn btn-info"
+                id="dbUpdate">DB수정하기</button>
+              </td>
+            </tr>
+       </table>
+    </form>
+	
+	
+	</div>
 	<div class="hello list">list</div>
 </body>
 </html>

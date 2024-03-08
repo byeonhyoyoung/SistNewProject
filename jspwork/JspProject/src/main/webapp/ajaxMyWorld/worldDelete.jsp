@@ -1,4 +1,3 @@
-<%@page import="myworld.model.WorldDto"%>
 <%@page import="myworld.model.WorldDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
@@ -12,22 +11,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- dao먼저 선언 -->
 <%
 	WorldDao dao=new WorldDao();
-
-	request.setCharacterEncoding("utf-8");
-	
-	//데이터 읽기(writer,content,avata만)
-	String writer=request.getParameter("writer");
-	String content=request.getParameter("content");
-	String avata=request.getParameter("avata");
-	
-	WorldDto dto=new WorldDto();
-	dto.setWriter(writer);
-	dto.setContent(content);
-	dto.setAvata(avata);
-	
-	dao.insertWorld(dto);
+	String num=request.getParameter("num");
+	dao.deleteWorld(num);
 %>
 </body>
 </html>
