@@ -48,15 +48,14 @@
 					%>
 					<tr>
 						<td align="center"><%=no %></td>
-						<td>
-						<a href="content.jsp?num=<%=dto.getNum() %>" 
-						style="text-decoration: none; color: black;">
-						<img alt="" src="../save/<%=dto.getImgname() %>" style="width: 30px;">
-						<%=dto.getSubject() %></a>
-						</td>
-						<td><%=dto.getWriter() %></td>
-						<td><%=sdf.format(dto.getWriteday()) %></td>
-						<td><%=dto.getReadcount() %></td>
+		        	    <td>
+		        	    <a href="content.jsp?num=<%=dto.getNum() %>" style="text-decoration: none; color: black;">
+		        	    <img alt="" src="../save/<%=dto.getImgname()%>" style="width: 30px;">
+		        	    <%=dto.getSubject() %></a>
+		        	    </td>
+		        	    <td><%=dto.getWriter() %></td>
+		        	    <td><%=sdf.format(dto.getWriteday()) %></td>
+		        	    <td><%=dto.getReadcount() %></td>
 					</tr>
 				<%}
 			%>
