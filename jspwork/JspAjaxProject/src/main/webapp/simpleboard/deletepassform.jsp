@@ -15,23 +15,22 @@
 </style>
 </head>
 <%
-	//num을 읽어서 form에 hidden으로 넣는다
-	String num=request.getParameter("num");
-
+  //num을 읽어서 form에 hidden으로 넣는다
+  String num=request.getParameter("num");
 %>
 <body>
-<div style="margin: 200px 200px; width: 300px;">
-	<form action="deletepassaction.jsp" method="post">
-		<input type="hidden" name="num" value="<%=num %>"> <!--<%%>넣고 여기 hidden처리  -->
-		<div class="d-inline-flex">
-			<h4 style="width: 100px">비밀번호</h4>
-			<input type="password" class="form-control" required="required"
-			name="pass" style="width: 150px;">
-		</div>
-		<br>
-		<button type="submit" class="btn btn-danger"
-		style="margin-left: 100px; margin-top: 10px;">삭제</button>
-	</form>
-</div>
+  <div style="margin: 200px 200px; width: 300px; ">
+     <form action="deletepassaction.jsp" method="post">
+       <input type="hidden" name="num" value="<%=num%>">
+        <div class="d-inline-flex">
+          <h5 style="width: 100px;">비밀번호</h5>
+          <input type="password" class="form-control" required="required"
+          name="pass" style="width: 150px;">
+        </div>
+        <br><br>
+        <button type="submit" class="btn btn-danger" 
+        style="margin-left: 100px;">삭제</button>
+     </form>
+  </div>
 </body>
 </html>

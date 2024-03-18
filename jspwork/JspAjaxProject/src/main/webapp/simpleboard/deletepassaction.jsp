@@ -28,25 +28,19 @@
 	//false면 경고후 back
 	if(check)
 	{
-		dao.deleteSimpleBoard(num);
+		dao.deleteBoard(num);
 		%>
 		<script type="text/javascript">
-			alert("삭제되었습니다\n목록으로 이동합니다");
-			location.href='boardlist.jsp';
+		  alert("삭제되었습니다\n목록으로 이동합니다");
+		  location.href='boardlist.jsp';
 		</script>
 	<%}else{%>
 		<script type="text/javascript">
-			alert("비밀번호가 맞지않습니다");
-			history.back();
+		  alert("비밀번호가 맞지않습니다");
+		  history.back();
 		</script>
 	<%}
-	
-
-	
-
-	
 %>
-
 <body>
 
 </body>

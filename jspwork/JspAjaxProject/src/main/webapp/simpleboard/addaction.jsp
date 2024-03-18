@@ -47,11 +47,11 @@
 <jsp:useBean id="dto" class="simpleboard.model.SimpleBoardDto"/>
 <jsp:setProperty property="*" name="dto"/>
 <%
-  dao.insertSimpleBoard(dto);
+  dao.insertBoard(dto);
 
 //목록
 //response.sendRedirect("boardlist.jsp");
-//인서트 후 내용보기로 이동하려면 방금 insert된 num값을 알아야한다 -> dao **부분 확인하기
+//인서트후 내용보기로 이동하려면 방금 insert된 num값을 알아야한다
 int num=dao.getMaxNum();
 response.sendRedirect("contentview.jsp?num="+num);
 

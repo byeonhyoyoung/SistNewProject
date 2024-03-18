@@ -1,3 +1,4 @@
+<%@page import="simpleboardanswer.model.SimpleAnswerDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="simpleboard.model.SimpleBoardDto"%>
 <%@page import="java.util.List"%>
@@ -30,7 +31,7 @@
 </style>
 </head>
 <%
-SimpleBoardDao dao=new SimpleBoardDao();
+SimpleBoardDao dao=new SimpleBoardDao(); //이건 board dao
 
 //전체갯수
 int totalCount=dao.getTotalCount();
@@ -78,28 +79,41 @@ List<SimpleBoardDto>list=dao.getPagingList(startNum, perPage);
 //List<SimpleBoardDto>list=dao.getAllDatas();
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //int count=list.size();
+
+
+//list의 각 dto에 댓글개수 저장해두기 / -> 출력할 곳에서 출력
+//댓글 리스트에 대한 Dao..
+SimpleAnswerDao adao=new SimpleAnswerDao(); //댓글dao
+
+for(SimpleBoardDto dto:list)
+{
+	//댓글변수에 댓글 총개수 넣기
+	int acount=adao.getAnswerList(dto.getNum()).size();
+	dto.setAnswercount(acount);
+	
+}
 %>
 <body>
 <div style="margin: 50px 100px; width: 800px;">
-<button type="button" class="btn btn-outline-info" onclick="location.href='addform.jsp'"
-style="margin-left: 650px;">
-<i class="bi bi-pencil"></i>글쓰기</button>
-<br>
-<h6><b>총<%=totalCount %>개의 글이 있습니다</b></h6>
-<table class="table table-bordered">
-	<caption align="top"><b>간단목록게시판</b></caption>
-	<tr class="table-light">
-		<th width="80">번호</th>
-		<th width="350">제목</th>
-		<th width="180">작성자</th>
-		<th width="180">작성일</th>
-		<th width="80">조회</th>
-	</tr>
-	
-	<%
-		if(totalCount==0)
-		{%>
-			<tr>
+  <button type="button" class="btn btn-outline-info" onclick="location.href='addform.jsp'"
+  style="margin-left: 650px;">
+  <i class="bi bi-pencil"></i>글쓰기</button>
+  <br>
+  <h6><b>총<%=totalCount %>개의 글이 있습니다</b></h6>
+  <table class="table table-bordered">
+    <caption align="top"><b>간단목록게시판</b></caption>
+    <tr class="table-light">
+      <th width="80">번호</th>
+      <th width="350">제목</th>
+      <th width="180">작성자</th>
+      <th width="180">작성일</th>
+      <th width="100">조회</th>
+    </tr>
+    
+    <%
+      if(totalCount==0)
+      {%>
+    	  <tr>
     	    <td colspan="5" align="center">
     	      <h6><b>등록된 게시글이 없습니다</b></h6>
     	    </td>
@@ -116,14 +130,23 @@ style="margin-left: 650px;">
     		      <a href="contentview.jsp?num=<%=dto.getNum()%>">
     		       <%=dto.getSubject() %>
     		      </a>
+    		      
+    		      <!-- 댓글개수 -->
+    		      <!-- 댓글 없으면 0말고 나타내주지 않기 -->
+    		      <%
+    		      	if(dto.getAnswercount()>0)
+    		      	{%>
+    		      		<a href="contentview.jsp?num=<%=dto.getNum()%>#alist" style="color: red;">[<%=dto.getAnswercount() %>]</a>
+    		      	<%}
+    		      %>
     		    </td>
     		    <td align="center"><%=dto.getWriter() %></td>
     		    <td align="center"><%=sdf.format(dto.getWriteday()) %></td>
     		    <td align="center"><%=dto.getReadcount() %></td>
     		  </tr>
-			<%}
-		}
-	%>
+    	  <%}
+      }
+    %>
 </table>
 
 <!-- 페이지 번호 출력 -->
@@ -141,25 +164,25 @@ if(startPage>1)
 		if(pp==currentPage)
 			//css주기
 		{%>
-			<li class="page-item active">
+    		<li class="page-item active">
     		<a class="page-link" href="boardlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
     		</li>
-		<%}else
-		{%>
-			<li class="page-item">
+    	<%}else
+    	{%>
+    		<li class="page-item">
     		<a class="page-link" href="boardlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
     		</li>
-		<%}
+    	<%}
 	}
 	
 	//다음
 	if(endPage<totalPage)
-    {%>
-    	<li class="page-item">
-    		<a  class="page-link" href="boardlist.jsp?currentPage=<%=endPage+1%>"
-    		style="color: black;">다음</a>
-    	</li>
-    <%}
+	{%>
+	<li class="page-item">
+		<a  class="page-link" href="boardlist.jsp?currentPage=<%=endPage+1%>"
+		style="color: black;">다음</a>
+	</li>
+	<%}
 %>
 </ul>
 

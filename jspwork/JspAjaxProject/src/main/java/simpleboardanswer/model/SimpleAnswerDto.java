@@ -10,7 +10,6 @@ public class SimpleAnswerDto {
 	private String content;
 	private Timestamp writeday;
 	
-	
 	public String getIdx() {
 		return idx;
 	}

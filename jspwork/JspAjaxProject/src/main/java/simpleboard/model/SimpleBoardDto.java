@@ -6,10 +6,11 @@ public class SimpleBoardDto {
 
 	private String num;
 	private String writer;
+	private String pass;
 	private String subject;
 	private String content;
-	private String pass;
 	private int readcount;
+	private int answercount; //댓글개수저장
 	private Timestamp writeday;
 	
 	
@@ -25,6 +26,12 @@ public class SimpleBoardDto {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
 	public String getSubject() {
 		return subject;
 	}
@@ -36,12 +43,6 @@ public class SimpleBoardDto {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
 	}
 	public int getReadcount() {
 		return readcount;
@@ -55,6 +56,14 @@ public class SimpleBoardDto {
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
 	}
+	public int getAnswercount() {
+		return answercount;
+	}
+	public void setAnswercount(int answercount) {
+		this.answercount = answercount;
+	}
+	
+	
 	
 	
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import mysql.db.DbConnect;
 
 public class SimpleBoardDao {
-	
+
 	DbConnect db=new DbConnect();
 	
 	//전체목록
@@ -34,9 +34,9 @@ public class SimpleBoardDao {
 				
 				dto.setNum(rs.getString("num"));
 				dto.setWriter(rs.getString("writer"));
+				dto.setPass(rs.getString("pass"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
-				dto.setPass(rs.getString("pass"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
 				
@@ -47,27 +47,28 @@ public class SimpleBoardDao {
 			e.printStackTrace();
 		}
 		
-		return list;
 		
+		return list;
 	}
 	
 	//insert
-	public void insertSimpleBoard(SimpleBoardDto dto)
+	public void insertBoard(SimpleBoardDto dto)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
-		String sql="insert into simpleboard values(null,?,?,?,?,0,now())";
+		String sql="insert into simpleboard values (null,?,?,?,?,0,now())";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getWriter());
-			pstmt.setString(2, dto.getSubject());
-			pstmt.setString(3, dto.getContent());
-			pstmt.setString(4, dto.getPass());
+			pstmt.setString(2, dto.getPass());
+			pstmt.setString(3, dto.getSubject());
+			pstmt.setString(4, dto.getContent());
 			
 			pstmt.execute();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,12 +98,13 @@ public class SimpleBoardDao {
 			{
 				dto.setNum(rs.getString("num"));
 				dto.setWriter(rs.getString("writer"));
+				dto.setPass(rs.getString("pass"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
-				dto.setPass(rs.getString("pass"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,11 +114,9 @@ public class SimpleBoardDao {
 		
 		
 		return dto;
-		
-		
 	}
 	
-	//readcount증가 (조회수 증가)
+	//조회수증가
 	public void updateReadCount(String num)
 	{
 		Connection conn=db.getConnection();
@@ -135,14 +135,12 @@ public class SimpleBoardDao {
 			db.dbClose(pstmt, conn);
 		}
 		
-				
-		
 	}
 	
-	//가장최근에 추가된 글의 num값 알기 (select max(num) max from simpleboard;) **
+	//가장최근에 추가된 글의 num값 알기
 	public int getMaxNum()
 	{
-		int max=0;
+		int max=0;;
 		
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
@@ -154,9 +152,8 @@ public class SimpleBoardDao {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			
-			if(rs.next())
-			{
-				max=rs.getInt("max"); //rs.getInt(1)로 써도됨
+			if(rs.next()) {
+				max=rs.getInt("max"); //rs.getInt(1)
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -165,15 +162,15 @@ public class SimpleBoardDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
-		
 		return max;
-		
 	}
 	
-	//페이징..2개 메서드필요  1.전체갯수반환  2.부분조회(startnum부터 perpage갯수만큼 반환)
-	//1.전체갯수반환(int로..항상 getTotalCount로 해주자!!)
-	public int getTotalCount() //전체니까 넘어가야할 파라메타값 없음 ()
+	//페이징..1.전체갯수반환   2.부분조회(startnum부터 perpage갯수만큼 반환)
+	//1.전체갯수반환  
+	
+	public int getTotalCount()
 	{
+		
 		int total=0;
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
@@ -194,13 +191,12 @@ public class SimpleBoardDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
-		return total;
 		
-				
+		return total;
 	}
-
+	
 	//2.부분조회(startnum부터 perpage갯수만큼 반환)
-	public List<SimpleBoardDto> getPagingList(int startNum, int perPage)
+	public List<SimpleBoardDto> getPagingList(int startNum,int perPage)
 	{
 		List<SimpleBoardDto> list=new ArrayList<SimpleBoardDto>();
 		
@@ -224,18 +220,21 @@ public class SimpleBoardDao {
 				
 				dto.setNum(rs.getString("num"));
 				dto.setWriter(rs.getString("writer"));
+				dto.setPass(rs.getString("pass"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
-				dto.setPass(rs.getString("pass"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
 				
 				list.add(dto);
 			}
 			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			db.dbClose(rs, pstmt, conn);
 		}
 		
 		
@@ -244,7 +243,7 @@ public class SimpleBoardDao {
 	}
 	
 	//비번이 맞는지
-	public boolean isPassCheck(String num, String pass)
+	public boolean isPassCheck(String num,String pass)
 	{
 		boolean check=false;
 		
@@ -265,8 +264,7 @@ public class SimpleBoardDao {
 			if(rs.next())
 			{
 				if(rs.getInt(1)==1)
-					check=true; //else는 안해줘도됨
-				
+					check=true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -275,12 +273,12 @@ public class SimpleBoardDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
-		return check;
 		
+		return check;
 	}
 	
 	//삭제
-	public void deleteSimpleBoard(String num)
+	public void deleteBoard(String num)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
@@ -289,7 +287,6 @@ public class SimpleBoardDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, num);
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -302,12 +299,12 @@ public class SimpleBoardDao {
 	}
 	
 	//수정
-	public void updateSimpleBoard(SimpleBoardDto dto)
+	public void updateBoard(SimpleBoardDto dto)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
-		String sql="update simpleboard set writer=?, subject=?, content=? where num=?";
+		String sql="update simpleboard set writer=?,subject=?,content=? where num=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -327,4 +324,5 @@ public class SimpleBoardDao {
 		}
 		
 	}
+	
 }

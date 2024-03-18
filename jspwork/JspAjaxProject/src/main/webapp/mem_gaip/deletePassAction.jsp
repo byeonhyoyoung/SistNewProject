@@ -1,3 +1,4 @@
+<%@page import="mem_gaip.model.MemgaipDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,6 +10,16 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
+<%
+	String m_num=request.getParameter("m_num");
+	String m_pass=request.getParameter("m_pass");
+	
+	MemgaipDao dao=new MemgaipDao();
+	
+	boolean check=dao.isIdCheck(m_num);
+	
+	
+%>
 <body>
 </body>
 </html>
