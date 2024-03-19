@@ -1,6 +1,6 @@
 <%@page import="mem_gaip.model.MemgaipDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,30 +10,22 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
-<%
-	//num, pass 둘 다 받기
-	String m_num=request.getParameter("m_num");
-	  String m_pass=request.getParameter("m_pass");
-	  
-	  MemgaipDao dao=new MemgaipDao();
-	  
-	  boolean check=dao.isEqualPass(m_num, m_pass);
-	  
-	  //맞으면 삭제후 목록 틀리면 경고창
-	  if(check)
-	  {
-		  dao.deleteMemgaip(m_num);
-		  response.sendRedirect("memList.jsp");
-	  }else{%>
-		  <script type="text/javascript">
-		    alert("비밀번호가 맞지않습니다");
-		    history.back();
-		  </script>
-			
-	  <%}
-	
-	
-%>
 <body>
+<%
+  String m_num=request.getParameter("m_num");
+  String m_pass=request.getParameter("m_pass");
+  
+  MemgaipDao dao=new MemgaipDao();
+  boolean check=dao.isEqualPass(m_num, m_pass);
+		 
+  if(check){
+	  response.sendRedirect("updateForm.jsp?m_num="+m_num);
+  }else{%>
+	  <script type="text/javascript">
+	    alert("비밀번호가 맞지않습니다");
+	    history.back();
+	  </script>
+  <%}
+%>
 </body>
 </html>
