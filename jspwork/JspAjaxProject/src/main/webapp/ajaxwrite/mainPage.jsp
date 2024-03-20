@@ -255,15 +255,15 @@ function list()
         </tr>
         
         <tr>
-          <td>
+          <td align="center">
             <button type="button" class="btn btn-outline-info btn-sm"
-            onclick="location.href='mainPage.jsp'">목록</button>
-            <button type="button" class="addbtn btn btn-outline-info btn-sm"
-            >글쓰기</button>
-            <button type="button" class="updatebtn btn btn-outline-info btn-sm"
-            >수정</button>
-            <button type="button" class="deletebtn btn btn-outline-info btn-sm"
-            >삭제</button>
+            onclick="location.href='mainPage.jsp'"><i class="bi bi-list-check"></i>목록</button>
+            <button type="button" class="addbtn btn btn-outline-success btn-sm"
+            ><i class="bi bi-pencil"></i>글쓰기</button>
+            <button type="button" class="updatebtn btn btn-outline-primary btn-sm"
+            ><i class="bi bi-pencil-square"></i>수정</button>
+            <button type="button" class="deletebtn btn btn-outline-danger btn-sm"
+            ><i class="bi bi-trash"></i>삭제</button>
           </td>
         </tr>
      </table>

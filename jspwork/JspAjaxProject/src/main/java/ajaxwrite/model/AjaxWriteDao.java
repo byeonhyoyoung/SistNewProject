@@ -13,6 +13,7 @@ public class AjaxWriteDao {
 
   DbConnect db=new DbConnect();
   
+  //insert
   public void insertWrite(AjaxWriteDto dto)
   {
 	  Connection conn=db.getConnection();
@@ -114,4 +115,51 @@ public class AjaxWriteDao {
 	  
 	  
   }
+  
+  //삭제
+  public void deleteWrite(String num)
+  {
+	  Connection conn=db.getConnection();
+	  PreparedStatement pstmt=null;
+	  
+	  String sql="delete from ajaxwrite where num=?";
+	  
+	  try {
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, num);
+		pstmt.execute();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		db.dbClose(pstmt, conn);
+	}
+	  
+  }
+  
+  //수정
+  public void updateWrite(AjaxWriteDto dto)
+  {
+	  Connection conn=db.getConnection();
+	  PreparedStatement pstmt=null;
+	  
+	  String sql="update ajaxwrite set subject=?, story=?, image=? where num=?";
+	  
+	  try {
+		pstmt=conn.prepareStatement(sql);
+		
+		pstmt.setString(1, dto.getSubject());
+		pstmt.setString(2, dto.getStory());
+		pstmt.setString(3, dto.getImage());
+		
+		pstmt.execute();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		db.dbClose(pstmt, conn);
+	}
+	  
+  }
+  
 }
