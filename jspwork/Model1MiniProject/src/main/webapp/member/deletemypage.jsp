@@ -1,6 +1,6 @@
 <%@page import="data.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,21 +11,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div style="margin: 100px 200px;">
-	<img alt="" src="image/welcome.jpg">
-	
-	<%
-	String myid=(String)session.getAttribute("myid");
-	MemberDao dao=new MemberDao();
-	String name=dao.getName(myid);
-	%>
-	
-	<br><br>
-	
-	<b><%=name %>님 로그인중</b>
-	<button type="button" class="btn btn-danger"
-	onclick="location.href='login/logoutaction.jsp'">로그아웃</button>
-</div>
-
+<%
+  String num=request.getParameter("num");
+  String pass=request.getParameter("pass");
+  
+  //dao
+  MemberDao dao=new MemberDao();
+  
+  //비번체크해서 맞으면 삭제
+  boolean b=dao.isEqualPass(num, pass);
+  
+  if(b){
+	  dao.deleteMember(num);
+	  %>
+	  <script type="text/javascript">
+	   alert("회원탈퇴성공!!!");
+	   location.href="../index.jsp";
+	  </script>
+  <%}else{%>
+	  
+	  <script type="text/javascript">
+	    alert("비밀번호가 맞지않습니다");
+	    history.back();
+	  </script>
+  <%}
+%>
 </body>
 </html>

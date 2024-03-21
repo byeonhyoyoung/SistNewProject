@@ -10,5 +10,6 @@
   //여러개 가지고올때 jsonarray임
   JSONObject ob=new JSONObject();
   ob.put("count", count);
+  System.out.println(count);
 %>
 <%=ob.toString()%>

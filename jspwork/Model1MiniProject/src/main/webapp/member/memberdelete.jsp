@@ -1,3 +1,4 @@
+<%@page import="data.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,16 +10,14 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
-<%
-  //프로젝트 절대경로
-  String root=request.getContextPath();
-%>
 <body>
-	<!-- root변수는 사용자가 요청한 특정 웹 애플리케이션의 경로를 나타내므로 동적이다 -->
-   <a href="<%=root%>" style="color: black; text-decoration: none;">
-   <img alt="" src="<%=root%>/image/title.png">
-   		JSP & JQuery 미니프로젝트
-   </a>
+<!-- 관리자가 강퇴시키는  -->
+<%
+	String num=request.getParameter("num"); //num 받아서
+	MemberDao dao=new MemberDao();
+	dao.deleteMember(num);
+	response.sendRedirect("../index.jsp?main=member/memberlist.jsp"); //..유일
+	//컨펌창 없이 삭제됨
+%>
 </body>
 </html>
-

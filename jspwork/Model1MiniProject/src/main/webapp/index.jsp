@@ -66,7 +66,7 @@
   //url을 통해서 main값을 읽어서 메인페이지에 출력한다
   if(request.getParameter("main")!=null)
   {
-	  mainPage=request.getParameter("main");
+	  mainPage=request.getParameter("main"); //body로 쓰면..
   }
 %>
 <body>

@@ -19,7 +19,7 @@
 		  //alert(id);
 		  $.ajax({
 			  type:"get",
-			  url:"member/idcheck.jsp",
+			  url:"member/idcheck.jsp", //파일명 대소문자 주의!!!!!!!
 			  dataType:"json",
 			  data:{"id":id},
 			  success:function(res){
@@ -50,7 +50,7 @@
 	  
   })
   
-  //f는 form을 의미
+  
   function check(f)
   {
 	  if(f.pass.value!=f.pass2.value){
@@ -64,7 +64,7 @@
 </script>
 </head>
 <body>
-<div style="margin: 100px 100px; width: 500px;">
+<div style="margin: 100px 200px; width: 500px;">
 	<form action="member/addaction.jsp" method="post" onsubmit="return check(this)">
 	   <table class="table table-bordered" >
 	      <caption align="top"><b>회원가입</b></caption>
