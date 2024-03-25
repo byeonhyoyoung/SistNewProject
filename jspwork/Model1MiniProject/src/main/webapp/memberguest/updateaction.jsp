@@ -1,7 +1,6 @@
 <%@page import="data.dao.GuestDao"%>
 <%@page import="data.dto.GuestDto"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
-<%@page import="org.apache.tomcat.dbcp.pool2.impl.DefaultEvictionPolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
@@ -15,9 +14,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- updateaction.jsp 복사해옴 -->
 <%
-	String myid=(String)session.getAttribute("myid");
-	
 	String realPath=getServletContext().getRealPath("/save");
 	System.out.println(realPath);
 	
@@ -28,23 +26,31 @@
 	try{
 	multi=new MultipartRequest(request,realPath,uploadSize,"utf-8",new DefaultFileRenamePolicy());
 	
-		String content=multi.getParameter("content");
-	    String photoname=multi.getFilesystemName("photo");
+		String num=multi.getParameter("num"); //num받는것이 틀림
+		String currentPage=multi.getParameter("currentPage");
+	    String content=multi.getParameter("content");
+	    String photoname=multi.getFilesystemName("photo"); 
+		
+		//기존포토명 가져오기
+		GuestDao dao=new GuestDao();
+        String old_photoname=dao.getData(num).getPhotoname();
 		
 		//dto에 저장
 		GuestDto dto=new GuestDto();
 		
-		dto.setMyid(myid);
+		dto.setNum(num); //추가됨
+		//dto.setMyid(myid); //없으니 빼도됨
 		dto.setContent(content);
-		dto.setPhotoname(photoname);
+		//사진선택을 안하면 기존의 사진으로 저장
+		dto.setPhotoname(photoname==null?old_photoname:photoname); //다음 아래 update로
+		//dto.setPhotoname(photoname); //사진선택안했을때 예전사진 가지고와야함
 		
-		//dao
-		GuestDao dao=new GuestDao();
-		dao.insertGuest(dto);
+		//update	
+		dao.updateGuest(dto);
 		
 		//동기방식이라 이동해줘야함
-		//방명록 목록으로 이동
-		response.sendRedirect("../index.jsp?main=memberguest/guestlist.jsp");
+		//방명록 목록으로 이동(수정했던 페이지로 이동)
+		response.sendRedirect("../index.jsp?main=memberguest/guestlist.jsp?currentPage="+currentPage);
 		
 	}catch (Exception e){
 		

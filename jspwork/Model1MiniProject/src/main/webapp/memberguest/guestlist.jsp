@@ -1,3 +1,5 @@
+<%@page import="data.dao.MemberDao"%>
+<%@page import="data.dto.MemberDto"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="data.dao.GuestDao"%>
@@ -12,8 +14,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
+<style type="text/css">
+
+	span.day{
+		float: right;
+		font-size: 10pt;
+		color: gray;
+	}
+	
+	i.mod{
+		cursor: pointer;
+		color: green;
+	}
+	
+	i.del{
+		cursor: pointer;
+		color: red;
+	}
+	
+	i.heart{
+		color: red;
+	}
+</style>
+
+<script type="text/javascript">
+   $(function(){
+	   
+	   $("span.likes").click(function(){
+		   
+		   var num=$(this).attr("num");
+		   //alert(num);
+		   var tag=$(this);
+		   
+		   $.ajax({
+			   type:"get",
+			   dataType:"json",
+			   url:"memberguest/updateincrechu.jsp",
+			   data:{"num":num},
+			   success:function(data){
+				   
+				  // alert(data.chu);
+				  tag.next().text(data.chu);
+				  
+				  //하트에 animate
+				  tag.next().next().animate({"font-size":"15px"},1000,function(){
+					  //애니메이션 끝난후
+					  $(this).css("font-size","0px");
+				  })
+			   }
+			});
+		});
+	   
+	   //삭제
+	   $("i.del").click(function(){
+		   var num=$(this).attr("num");
+		   var currentPage=$(this).attr("currentPage");
+		   
+		   //alert(nun+","+currentPage);
+		   
+		   var yes=confirm("정말 삭제하시겠어요?");
+		   
+		   if(yes){
+			   location.href='memberguest/delete.jsp?num='+num+'&currentPage='+currentPage;
+		   }
+	   })
+	})
+</script>
 </head>
+<body>
 <%
+	//로그인상태확인
+	 String loginok=(String)session.getAttribute("loginok");
+
 	GuestDao dao=new GuestDao();
 
 //전체갯수
@@ -57,18 +129,19 @@ startNum=(currentPage-1)*perPage;
 no=totalCount-(currentPage-1)*perPage;
 
 //페이지에서 보여질 글만 가져오기
-List<GuestDto>list=dao.getList(startNum, startPage);
+List<GuestDto>list=dao.getList(startNum, perPage);
+
+//마지막 페이지의 단 한개남은 글 삭제시 빈페이지가 남는다 그러므로 해결책은 그이전페이지로 가면된다
+if(list.size()==0 && currentPage!=1)
+{%>
+	<script type="text/javascript">
+	location.href="index.jsp?main=memberguest/guestlist.jsp?currentPge=<%=currentPage-1%>";
+	</script>
+<%}
 
 //List<SimpleBoardDto>list=dao.getAllDatas();
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //int count=list.size();
-%>
-
-<body>
-<%
-   //로그인상태확인
-   String loginok=(String)session.getAttribute("loginok");
-
 %>
 
 <%
@@ -78,90 +151,115 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	  <hr width="700" align="left" style="margin-left: 100px;">
   <%}
 %>
-<div style="margin: 50px 100px; width: 650px">
+<div style="margin: 50px 100px;">
 <b>방명록 리스트</b>
 <br>
-<h6><b>총<%=totalCount %>개의 방명록글이 있습니다</b></h6>
-<table class="table table-bordered">
-	<tr class="table-light">
-		<th width="100" height="300"></th>
-	</tr>
-	
-	<tr class="table-light">
-		<th width="100" height="300"></th>
-	</tr>
-	
-	<tr class="table-light">
-		<th width="100" height="300"></th>
-	</tr>
-	
-	<%
-		if(totalCount==0)
-		{%>
-			<tr>
-				<td align="center">		
-					<h6>등록된 방명록글이 없습니다</h6>
-				</td>
-			</tr>
-		<%}else{
-			for(int i=0; i<list.size(); i++)
-			{
-				GuestDto dto=list.get(i);
-				%>
-				
-				<tr>
-					<td align="left"><%=no-- %></td>
-					<%-- <td>
-						<a href="guestform.jsp?num=<%=dto.getNum()%>"></a>
-					</td> --%>
-					
-					<td align="center"><%=dto.getMyid() %></td>
-					<td align="center"><%=dto.getContent() %></td>
-					<td align="center"><%=dto.getPhotoname() %></td>
-					<td align="center"><%=dto.getWriteday() %></td>
-				</tr>
-			<%}
-		}
-	%>
-</table>
+<h6><b>총 <%=totalCount %> 개의 방명록글이 있습니다</b></h6>
 
-<!-- 페이지 번호 출력 -->
-<ul class="pagination justify-content-center">
-<%
-//이전
-if(startPage>1)
-{%>
-	<li class="page-item ">
-	   <a class="page-link" href="guestlist.jsp?currentPage=<%=startPage-1%>" style="color: black;">이전</a>
-	</li>
-<%}
-	for(int pp=startPage;pp<=endPage;pp++)
-	{
-		if(pp==currentPage)
-			//css주기
-		{%>
+	<%
+    MemberDao mdao=new MemberDao();
+    for(GuestDto dto:list)
+    {
+    	//이름얻기
+    	String name=mdao.getName(dto.getMyid());
+    	%>
+    	
+    	<table  class="table" style="width: 580px;">
+    	  <tr>
+    	    <td>
+    	    <b><i class="bi bi-person-circle"></i>&nbsp;<%=name %>(<%=dto.getMyid() %>)</b>
+    	    
+    	    <%
+    	      String myid=(String)session.getAttribute("myid");
+    	    
+    	      //로그인한 아이디와 글을쓴아이디가 같을경우에만 수정,삭제 보이게한다
+    	      if(loginok!=null && dto.getMyid().equals(myid)){
+    	    	  %>
+    	    	 <span style="margin-left: 280px;">
+    	    	  <i class="bi bi-pencil-square mod" 
+    	    	  onclick="location.href='index.jsp?main=memberguest/updateform.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>'"></i>
+    	    	  <i class="bi bi-trash del"
+    	    	  <%-- onclick="location.href='memberguest/delete.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>'"></i></span> 삭제버튼 삭제하면 띡 사라지지않는--%> 
+    	    	  num=<%=dto.getNum() %> currentPage=<%=currentPage %>></i></span>
+    	      <%}
+    	    %>
+    	    
+    	    <span class="day"><%=sdf.format(dto.getWriteday()) %></span>
+    	    </td>
+    	  </tr>
+    	  
+    	  <tr height="120">
+    	    <td>
+    	       <!-- 이미지가 null이아닌경우만 출력 -->
+    	       <%
+    	       if(dto.getPhotoname()!=null){%>
+    	    	   
+    	    	   <a href="save/<%=dto.getPhotoname()%>" target="_blank">
+    	    	      <img alt="" src="save/<%=dto.getPhotoname()%>" align="left"
+    	    	      style="width: 100px; " hspace="20">
+    	    	   </a>
+    	       <%}
+    	       %>
+    	       
+    	       <%=dto.getContent().replace("\n", "<br>")%>
+    	    </td>
+    	  </tr>
+    	  
+    	  <!-- 댓글&추천 -->
+    	  <tr>
+    	    <td>
+    	      <span class="answer" style="cursor: pointer;">댓글 0</span>
+    	      <span class="likes" style="margin-left: 20px; cursor: pointer;" num=<%=dto.getNum() %>><i class="bi bi-heart-fill heart"></i></span>
+    	      <span class="chu"><%=dto.getChu() %></span>
+    	      <i class="bi bi-heart-fill" style="font-size: 0px; color: red"></i>
+    	    </td>
+    	  </tr>
+    	</table>
+    <%}
+  %>
+  </div>
+  
+  <!-- 페이지 번호 출력 -->
+  <div style="width: 580px; text-align: center; margin: 50px 100px;">
+  
+  <ul class="pagination justify-content-center">
+  <%
+  //이전
+  if(startPage>1)
+  {%>
+	  <li class="page-item ">
+	   <a class="page-link" href="index.jsp?main=memberguest/guestlist.jsp?currentPage=<%=startPage-1%>" style="color: black;">이전</a>
+	  </li>
+  <%}
+    for(int pp=startPage;pp<=endPage;pp++)
+    {
+    	if(pp==currentPage)
+    		//css주기
+    	{%>
     		<li class="page-item active">
-    		<a class="page-link" href="guestlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
+    		<a class="page-link" href="index.jsp?main=memberguest/guestlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
     		</li>
     	<%}else
     	{%>
     		<li class="page-item">
-    		<a class="page-link" href="guestlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
+    		<a class="page-link" href="index.jsp?main=memberguest/guestlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
     		</li>
     	<%}
-	}
-	
-	//다음
-	if(endPage<totalPage)
-	{%>
-	<li class="page-item">
-		<a  class="page-link" href="guestlist.jsp?currentPage=<%=endPage+1%>"
-		style="color: black;">다음</a>
-	</li>
-	<%}
-%>
-</ul>
-
+    }
+    
+    //다음
+    if(endPage<totalPage)
+    {%>
+    	<li class="page-item">
+    		<a  class="page-link" href="index.jsp?main=memberguest/guestlist.jsp?currentPage=<%=endPage+1%>"
+    		style="color: black;">다음</a>
+    	</li>
+    <%}
+  %>
+  
+  </ul>
+ 
+  
 </div>
 </body>
 </html>

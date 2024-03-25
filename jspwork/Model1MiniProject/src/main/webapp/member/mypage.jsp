@@ -64,7 +64,7 @@
            %>
         	   <tr>
         	     <td rowspan="6" align="center" valign="middle" style="width: 200px;">
-        	        <img src="image/shopimg.png" id="mainimg">
+        	        <img src="image/my.jpg" id="mainimg">
         	     </td>
         	     <td style="width: 300px;">회원명: <%=dto.getName() %></td>
         	     <td rowspan="6" style="width: 150px;" align="center" valign="middle">

@@ -77,10 +77,13 @@
    <jsp:include page="layout/menu.jsp"/>
 </div>
 <div class="layout info">
-   <jsp:include page="layout/info.jsp"/>
+   <jsp:include page="layout/info.jsp"/> <!-- 정적 -->
 </div>
 <div class="layout main">
-   <jsp:include page="<%=mainPage %>"/>
+   <jsp:include page="<%=mainPage %>"/> <!-- 동적인 방식 -->
+   
+   <!-- mainPage변수는 URL파라미터를 통해 받아온 값을 저장하고 있으므로,
+   사용자의 요청에 따라 동적으로 다른 페이지를 포함시킬 수 있음 -->
 </div>
 </body>
 </html>
