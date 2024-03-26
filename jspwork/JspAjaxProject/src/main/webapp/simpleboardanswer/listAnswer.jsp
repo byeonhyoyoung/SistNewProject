@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-System.out.println("ddd");
+	//System.out.println("ddd");
 	String num=request.getParameter("num");
 	SimpleAnswerDao dao=new SimpleAnswerDao();
 	List<SimpleAnswerDto> list=dao.getAnswerList(num);
