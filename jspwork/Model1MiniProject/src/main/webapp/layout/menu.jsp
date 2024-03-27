@@ -48,7 +48,7 @@
 							<ul class="sub-menu">
 								<li><a href="#"><i class="icon-wrench"></i> 회원게시판</a></li>
 								<li><a href="#"><i class="icon-credit-card"></i> 이미지게시판</a></li>
-								<li><a href="#"><i class="icon-gift"></i> 스마트게시판</a></li>
+								<li><a href="index.jsp?main=smartboard/boardlist.jsp"><i class="icon-gift"></i> 스마트게시판</a></li>
 
 							</ul></li>
 						<li><a href="#">회원</a>
@@ -75,7 +75,7 @@
 								<li><a href="#">Medium Image</a></li>
 
 							</ul></li>
-						<li><a href="#">About</a></li>
+						<li><a href="#">About Maison</a></li>
 					</ul>
 				</nav>
 				<div class="clear"></div>
