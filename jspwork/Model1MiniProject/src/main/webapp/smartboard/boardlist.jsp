@@ -23,6 +23,51 @@
 		color: gray;
 	}
 </style>
+<script type="text/javascript">
+	/* head단에서는 $(function) */
+	$(function(){
+		
+		//전체체크 클릭시 체크값 얻어서 모든체크값에 전달
+		$(".alldelcheck").click(function(){
+			
+			//전체체크값 얻기(alldelcheck를 this라고하면)
+			var chk=$(this).is(":checked");
+			console.log(chk);
+			
+			//전체체크값을 글앞에 체크에 일괄전달하기
+			$(".alldel").prop("checked",chk);
+		});
+		
+		//삭제버튼 클릭시 삭제(몇개인지 값 잘 넘어오는지 확인할것)
+		$("#btndel").click(function(){
+			
+			var len=$(".alldel:checked").length;
+			//alert(len); //삭제 갯수 확인
+			
+			if(len==0){
+				alert("최소 1개 이상의 글을 선택해주세요");
+			}else{
+				
+				var a=confirm(len+"개의 글을 삭제하려면 [확인]을 눌러주세요"); //->체크된것의 val값 읽어야함
+				
+				//체크된 곳의 value값(num(dto.getNum심어놓음))얻기
+				var n=""; //여러개의 value값을 n에 누적시킬것이니까
+				$(".alldel:checked").each(function(idx){
+					n+=$(this).val()+","; //누적시키기..하나가 아니니까 ","
+					
+				});
+				
+				//마지막 컴마 제거
+				n=n.substring(0,n.length-1); //n= 다시 n이 되어야지(잊지말것)
+				console.log(n);
+				
+				//삭제파일로 전송
+				location.href="smartboard/alldelete.jsp?nums="+n; //num을 보냈는데 여러개야
+			}
+		})
+	})
+
+</script>
 </head>
 <%
 	SmartDao dao=new SmartDao();
@@ -101,7 +146,7 @@
         	{%>
         		<tr>
         		  <td align="center">
-        		  <input type="checkbox" value="<%=dto.getNum()%>">&nbsp;&nbsp;
+        		  <input type="checkbox" value="<%=dto.getNum()%>" class="alldel">&nbsp;&nbsp;
         		  <%=no-- %></td>
         		  <td><a href="index.jsp?main=smartboard/contentview.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>">
         		  <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 250px; display: block;"><%=dto.getSubject() %></span></a></td>
@@ -113,9 +158,9 @@
         	
         	<tr>
         	  <td colspan="5">
-        	     <input type="checkbox"> 전체선택
+        	     <input type="checkbox" class="alldelcheck"> 전체선택
         	     <span style="float: right;">
-        	        <button type="button" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i>삭제</button>&nbsp;
+        	        <button type="button" class="btn btn-danger btn-sm" id="btndel"><i class="bi bi-x-circle"></i>삭제</button>&nbsp;
         	        <button type="button" class="btn btn-info btn-sm"
  					onclick="location.href='index.jsp?main=smartboard/smartform.jsp'"><i class="bi bi-pencil-fill"></i>글쓰기</button>
         	     </span>
