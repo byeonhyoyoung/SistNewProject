@@ -11,10 +11,10 @@ import data.dto.SmartDto;
 import mysql.db.DbConnect;
 
 public class SmartDao {
-	
+
 	DbConnect db=new DbConnect();
 	
-	public void insertSmart (SmartDto dto)
+	public void insertSmart(SmartDto dto)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
@@ -38,8 +38,8 @@ public class SmartDao {
 		
 	}
 	
-	//paging list(페이징시 필수)
-	public List<SmartDto> getlList(int start, int perPage)
+	//paging list
+	public List<SmartDto> getList(int start,int perPage)
 	{
 		List<SmartDto> list=new ArrayList<SmartDto>();
 		Connection conn=db.getConnection();
@@ -79,11 +79,10 @@ public class SmartDao {
 		return list;
 	}
 	
-	//전체갯수 반환(페이징시 필수)
+	//전체갯수 반환
 	public int getTotalCount()
 	{
 		int total=0;
-		
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -104,15 +103,14 @@ public class SmartDao {
 		}
 		
 		return total;
-		
-		
 	}
 	
-	//num에 대한 dto반환
-	public SmartDto getdData(String num)
+	
+	//num 에 대한 dto반환
+	public SmartDto getData(String num)
 	{
 		SmartDto dto=new SmartDto();
-	
+		
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -121,31 +119,30 @@ public class SmartDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
+			
 			pstmt.setString(1, num);
+				
 			rs=pstmt.executeQuery();
 			
 			while(rs.next())
 			{
+								
 				dto.setNum(rs.getString("num"));
 				dto.setWriter(rs.getString("writer"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
 				dto.setReadcount(rs.getInt("readcount"));
 				dto.setWriteday(rs.getTimestamp("writeday"));
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			
 			db.dbClose(rs, pstmt, conn);
 		}
-		
 		return dto;
-		
-				
 	}
-	
 	//readcount
 	public void updateReadcount(String num)
 	{
@@ -167,6 +164,7 @@ public class SmartDao {
 		
 	}
 	
+	
 	//maxnum..가장최신에 추가된글의 num값 알기
 	public int getMaxNum()
 	{
@@ -183,7 +181,7 @@ public class SmartDao {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next())
-				max=rs.getInt("max"); //rs.getInt(1)
+				max=rs.getInt("max");  //rs.getInt(1)
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,12 +189,12 @@ public class SmartDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
-		return max;
 		
+		return max;
 	}
-
-	//수정..writer,subject,content 수정
-	public void updateSmart (SmartDto dto)
+	
+	//수정..writer,subject,content수정
+	public void updateSmart(SmartDto dto)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
@@ -220,7 +218,6 @@ public class SmartDao {
 		}
 		
 	}
-	
 	//삭제
 	public void deleteSmart(String num)
 	{
@@ -231,7 +228,6 @@ public class SmartDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, num);
 			pstmt.execute();
 		} catch (SQLException e) {

@@ -189,7 +189,7 @@
 				  s+="<div>"+item.nick+":  "+item.content;
 				  s+="<span class='aday'>"+item.writeday+"</span>";
 				  s+="<i class='bi bi-pencil-square amod' idx="+item.idx+"></i>";
-				  s+="<i class='bi bi-trash adel'  idx="+item.idx+"></i>";
+				  s+="<i class='bi bi-trash adel' idx="+item.idx+"></i>";
 			  });
 			  $("div.alist").html(s);
 			  

@@ -29,7 +29,7 @@
 	String currentPage=request.getParameter("currentPage");
 	
 	SmartDao dao=new SmartDao();
-	SmartDto dto=dao.getdData(num);
+	SmartDto dto=dao.getData(num);
 %>
 
 <body>

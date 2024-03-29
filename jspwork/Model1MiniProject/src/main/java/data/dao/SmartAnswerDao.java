@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import data.dto.SmartAnswerDto;
 import mysql.db.DbConnect;
@@ -14,13 +14,12 @@ public class SmartAnswerDao {
 
 	DbConnect db=new DbConnect();
 	
-	//insert
-	public void insertSmartAnswer(SmartAnswerDto dto)
+	public void insertAnswer(SmartAnswerDto dto)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
-		String sql="insert into smartanswer (num,nickname,content,writeday) values(?,?,?,now())";
+		String sql="insert into smartanswer (num,nickname,content,writeday) values (?,?,?,now())";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -39,20 +38,19 @@ public class SmartAnswerDao {
 		
 	}
 	
-	//댓글목록
-	public List<SmartAnswerDto> getAllSmartAnswer(String num)
+	//댓글출력
+	public List<SmartAnswerDto> getAnswerList(String num)
 	{
-		List<SmartAnswerDto> list=new Vector<SmartAnswerDto>();
+		List<SmartAnswerDto> list=new ArrayList<SmartAnswerDto>();
 		
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from smartanswer where num=? order by idx";
+		String sql="select * from smartanswer where num=? order by idx desc";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, num);
 			rs=pstmt.executeQuery();
 			
@@ -74,13 +72,73 @@ public class SmartAnswerDao {
 		}finally {
 			db.dbClose(rs, pstmt, conn);
 		}
-		
 		return list;
-		
 	}
 	
-	//댓글삭제
-	public void deleteSmartAnswer(String idx)
+	
+	//수정시 나타낼 데이타
+	public SmartAnswerDto getAnswerData(String idx)
+	{
+		SmartAnswerDto dto=new SmartAnswerDto();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from smartanswer where idx=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, idx);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				
+				dto.setIdx(rs.getString("idx"));
+				dto.setNum(rs.getString("num"));
+				dto.setNickname(rs.getString("nickname"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriteday(rs.getTimestamp("writeday"));
+								
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		
+		return dto;
+	}
+	
+	//수정
+	public void updateAnswer(SmartAnswerDto dto)
+	{
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="update smartanswer set nickname=?,content=? where idx=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getNickname());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getIdx());
+			
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(pstmt, conn);
+		}
+	}
+	
+	
+	//삭제
+	public void deleteAnswer(String idx)
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
@@ -91,6 +149,7 @@ public class SmartAnswerDao {
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setString(1, idx);
+			
 			pstmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -98,39 +157,9 @@ public class SmartAnswerDao {
 		}finally {
 			db.dbClose(pstmt, conn);
 		}
-		
 	}
 	
-	//댓글수정
-	public String getContent(String idx)
-	{
-		String content="";
-		
-		Connection conn=db.getConnection();
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
-		String sql="select content from smartanswer where idx=?";
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, idx);
-			rs=pstmt.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			db.dbClose(rs, pstmt, conn);
-		}
-		
-		return content;
-		
-	}
-	
-	//수정
 	
 	
-	//삭제
 	
 }

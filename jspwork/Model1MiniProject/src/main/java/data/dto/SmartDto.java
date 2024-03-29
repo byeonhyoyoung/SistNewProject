@@ -3,14 +3,13 @@ package data.dto;
 import java.sql.Timestamp;
 
 public class SmartDto {
-	
+
 	private String num;
 	private String writer;
 	private String subject;
 	private String content;
 	private int readcount;
 	private Timestamp writeday;
-	
 	
 	public String getNum() {
 		return num;
@@ -49,5 +48,6 @@ public class SmartDto {
 		this.writeday = writeday;
 	}
 	
-
+	
+	
 }

@@ -40,6 +40,11 @@ public class SmartAnswerDto {
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
 	}
+	@Override
+	public String toString() {
+		return "SmartAnswerDto [idx=" + idx + ", num=" + num + ", nickname=" + nickname + ", content=" + content
+				+ ", writeday=" + writeday + "]";
+	}
 	
 	
 	

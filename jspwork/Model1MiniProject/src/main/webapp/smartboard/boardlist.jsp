@@ -113,7 +113,7 @@
 	no=totalCount-(currentPage-1)*perPage;
 	
 	//페이지에서 보여질 글만 가져오기
-	List<SmartDto>list=dao.getlList(startNum, perPage);
+	List<SmartDto>list=dao.getList(startNum, perPage);
 	
 	//List<SimpleBoardDto>list=dao.getAllDatas();
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
