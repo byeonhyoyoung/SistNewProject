@@ -6,13 +6,10 @@
 <%@page import="data.dao.SmartAnswerDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- json으로 -->
 <%
-	request.setCharacterEncoding("utf-8");
-
+  /* json으로.. */
+  /* 위 html에 주석쓰면 오류발생(주의) */
   String num=request.getParameter("num");
-	System.out.println("num : "+num);
-
   SmartAnswerDao dao=new SmartAnswerDao();
   List<SmartAnswerDto> list=dao.getAnswerList(num);
   
@@ -29,12 +26,6 @@
 	  ob.put("writeday", sdf.format(dto.getWriteday()));
 	  
 	  arr.add(ob);
-	  System.out.println(dto.toString());
-	  
   }
-  
-  
-  
-  
 %>
 <%=arr.toString()%>

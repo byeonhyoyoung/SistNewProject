@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +11,18 @@
 </head>
 <body>
 <%
-	request.setCharacterEncoding("utf-8");
-	String num=request.getParameter("num");
-	String currentPage=request.getParameter("currentPage");
+  request.setCharacterEncoding("utf-8");
+  String num=request.getParameter("num");
+  String currentPage=request.getParameter("currentPage");
 %>
 <jsp:useBean id="dao" class="data.dao.SmartDao"/>
 <jsp:useBean id="dto" class="data.dto.SmartDto"/>
 <jsp:setProperty property="*" name="dto"/>
 <%
-	dao.updateSmart(dto);
+  dao.updateSmart(dto);
 
-	//contentview
-	response.sendRedirect("../index.jsp?main=smartboard/contentview.jsp?num="+num+"&currentPage="+currentPage);
+  //contenview
+  response.sendRedirect("../index.jsp?main=smartboard/contentview.jsp?num="+num+"&currentPage="+currentPage);
 %>
 </body>
 </html>

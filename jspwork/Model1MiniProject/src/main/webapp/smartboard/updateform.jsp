@@ -25,27 +25,29 @@
 	charset="utf-8"></script>	
 </head>
 <%
-	String num=request.getParameter("num");
-	String currentPage=request.getParameter("currentPage");
-	
-	SmartDao dao=new SmartDao();
-	SmartDto dto=dao.getData(num);
+  String num=request.getParameter("num");
+  String currentPage=request.getParameter("currentPage");
+  
+  SmartDao dao=new SmartDao();
+  SmartDto dto=dao.getData(num);
 %>
+
 
 <body>
 
 <form action="smartboard/updateaction.jsp" method="post">
-	<!-- hidden으로 넘겨줄것 2개있음 -->
-	<input type="hidden" name="num" value="<%=num%>">
-	<input type="hidden" name="currentPage" value="<%=currentPage%>">	
+	 <!-- hidden으로 넘겨줄것 2개있음 -->
+     <input type="hidden" name="num" value="<%=num%>">
+     <input type="hidden" name="currentPage" value="<%=currentPage%>">
 	<table style="width: 800px;margin-left: 100px;" class="table table-bordered">
-		<caption align="top"><b>스마트게시판 수정</b></caption>		
+		<caption align="top"><b>스마트게시판 수정</b></caption>
+		
 		
 		<tr>
 		  <th width="100" class="table-light">작성자</th>
 		  <td>
 		    <input type="text" name="writer" class="form-control"
-		    required="required" style="width: 130px;" 
+		    required="required" style="width: 130px;"
 		    value="<%=dto.getWriter()%>">
 		  </td>
 		</tr>

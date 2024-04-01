@@ -40,7 +40,7 @@ span.icon{
    
    $(function(){
 	   
-	   //처을 시작시 댓글 호출
+	   //처을 시작시 댓글 호출(지금은 없으니 생략)
 	   list();
 	   
 	   var num=$("#num").val();
@@ -51,10 +51,8 @@ span.icon{
 		   var nick=$("#nickname").val().trim();
 		   var content=$("#content").val().trim();
 		   
-		
-		   
-		   
-		   if(nick.length==0){
+		   //null값체크(null이 자꾸 넘어가니까)
+		   if(nickname.length==0){ //content.trim().length==0 (trim안해줘도 넘어감)
 			   alert("닉네임 입력후 저장해주세요");
 			   return;
 		   }
@@ -76,6 +74,7 @@ span.icon{
 				   $("#nickname").val('');
 				   $("#content").val('');
 				   
+				   //insert에 가서도 list출력해주자
 				   //댓글추가후 댓글목록 다시 출력
 				   list();
 			   }
@@ -86,7 +85,7 @@ span.icon{
 	   //삭제
 	   $(document).on("click","i.adel",function(){
 		   
-		   var idx=$(this).attr("idx");
+		   var idx=$(this).attr("idx"); //속성으로 넣어놨으니
 		   //alert(idx);
 		   
 		   var ans=confirm("댓글을 삭제하려면 [확인]을 눌러주새요");
@@ -99,6 +98,8 @@ span.icon{
 				   dataType:"html",
 				   data:{"idx":idx},
 				   success:function(){
+					   
+					   //alert("삭제성공");
 					   swal("삭제성공!", "삭제가 성공했어요", "success");
 					   list();
 				   }
@@ -112,7 +113,7 @@ span.icon{
 	   //수정폼에 데이타 띠우기
 	   $(document).on("click","i.amod",function(){
 		   
-		  idx=$(this).attr("idx");
+		  idx=$(this).attr("idx"); //전역변수로 하려면 앞에 var지우기
 		   //alert(idx);
 		   
 		   $.ajax({
@@ -127,12 +128,12 @@ span.icon{
 			   }
 		   });
 		   
-		   $("#myModal").modal("show");
+		   $("#myModal").modal("show"); //show 큰따옴표!!
 	   });
 	   
 	   
 	   //수정
-	   $(document).on("click","#btnupdate",function(){
+	   $(document).on("click","#btnupdate",function(){ //동적으로
 		  
 		   var nickname=$("#unickname").val();
 		   var content=$("#ucontent").val();
@@ -186,7 +187,7 @@ span.icon{
 		   data:{"num":$("#num").val()},
 		   success:function(res){
 			   
-			   //댓글개수출ㄹ겨
+			   //댓글갯수출력
 			   $("b.acount>span").text(res.length);
 			   
 			   var s="";
@@ -199,10 +200,7 @@ span.icon{
 			   });
 			   
 			   $("div.alist").html(s);
-		   } ,
-		    error: function(err) {
-		        console.error("Error fetching data:", err);
-		    } 
+		   }
 	   })
    }
 </script>
@@ -250,7 +248,7 @@ span.icon{
          <!-- 댓글 -->
          <tr>
            <td>
-               <b class="acount">댓글<span>0</span></b>
+               <b class="acount" >댓글<span>0</span></b>
                
                <div class="alist">
                   댓글목록

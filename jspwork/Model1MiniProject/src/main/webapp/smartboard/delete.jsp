@@ -1,6 +1,6 @@
 <%@page import="data.dao.SmartDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,15 +11,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 삭제후 보던페이지의 목록으로 이동 -->
+<!--  삭제후 보던페이지의 목록으로 이동-->
 <%
-	String num=request.getParameter("num");
-	String currentPage=request.getParameter("currentPage");
-	
-	SmartDao dao=new SmartDao();
-	dao.deleteSmart(num);
-	
-	response.sendRedirect("../index.jsp?main=smartboard/boardlist.jsp?currentPage="+currentPage);
+  String num=request.getParameter("num");
+  String currentPage=request.getParameter("currentPage");
+  
+  SmartDao dao=new SmartDao();
+  dao.deleteSmart(num);
+  
+  response.sendRedirect("../index.jsp?main=smartboard/boardlist.jsp?currentPage="+currentPage);
 %>
+
 </body>
 </html>
