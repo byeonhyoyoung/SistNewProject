@@ -27,7 +27,22 @@
       height: 150px;
       
    }
+   
 </style>
+<script type="text/javascript">
+	$(function(){
+		
+		$("a.goDetail").click(function(){
+			var shopnum=$(this).attr("shopnum");
+			//alert(shopnum); //어딜가도 넘어가야 dto값을 가져오겠지
+			
+			//디테일 페이지로 이동
+			location.href="index.jsp?main=shop/detailpage.jsp?shopnum="+shopnum;
+			
+		})
+	});
+
+</script>
 </head>
 <%
   ShopDao dao=new ShopDao();
@@ -77,7 +92,7 @@
                 	  <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" class="goDetail">
                 	     <img alt="" src="shopsave/<%=dto.getPhoto()%>" class="photo">
                 	     <br>
-                	     <%=dto.getSangpum() %><br>
+                	     <%=dto.getSangpum() %></a><br>
                 	     <b style="color: red; " ><%=sale %>%</b>
                 	     <span style="float: right;">
                 	        <div style="color: gray; font-size: 12px;">
@@ -90,7 +105,7 @@
                 	           <%=nf.format(dto.getPrice()) %>
                 	        </div>
                 	     </span>
-                	  </a>
+                	  
                 	</td>
                 	
                 	<%
@@ -131,7 +146,7 @@
                 	  <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" class="goDetail">
                 	     <img alt="" src="shopsave/<%=dto.getPhoto()%>" class="photo">
                 	     <br>
-                	     <%=dto.getSangpum() %><br>
+                	     <%=dto.getSangpum() %></a><br>
                 	     <b style="color: red; " ><%=sale %>%</b>
                 	     <span style="float: right;">
                 	        <div style="color: gray; font-size: 12px;">
@@ -144,7 +159,7 @@
                 	           <%=nf.format(dto.getPrice()) %>
                 	        </div>
                 	     </span>
-                	  </a>
+                	  
                 	</td>
                 	
                 	<%
@@ -184,7 +199,7 @@
                 	  <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" class="goDetail">
                 	     <img alt="" src="shopsave/<%=dto.getPhoto()%>" class="photo">
                 	     <br>
-                	     <%=dto.getSangpum() %><br>
+                	     <%=dto.getSangpum() %></a><br>
                 	     <b style="color: red; " ><%=sale %>%</b>
                 	     <span style="float: right;">
                 	        <div style="color: gray; font-size: 12px;">
@@ -197,7 +212,7 @@
                 	           <%=nf.format(dto.getPrice()) %>
                 	        </div>
                 	     </span>
-                	  </a>
+                	  
                 	</td>
                 	
                 	<%
@@ -238,7 +253,7 @@
                 	  <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" class="goDetail">
                 	     <img alt="" src="shopsave/<%=dto.getPhoto()%>" class="photo">
                 	     <br>
-                	     <%=dto.getSangpum() %><br>
+                	     <%=dto.getSangpum() %></a><br>
                 	     <b style="color: red; " ><%=sale %>%</b>
                 	     <span style="float: right;">
                 	        <div style="color: gray; font-size: 12px;">
@@ -251,7 +266,7 @@
                 	           <%=nf.format(dto.getPrice()) %>
                 	        </div>
                 	     </span>
-                	  </a>
+                	  
                 	</td>
                 	
                 	<%
@@ -292,7 +307,7 @@
                 	  <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" class="goDetail">
                 	     <img alt="" src="shopsave/<%=dto.getPhoto()%>" class="photo">
                 	     <br>
-                	     <%=dto.getSangpum() %><br>
+                	     <%=dto.getSangpum() %></a><br>
                 	     <b style="color: red; " ><%=sale %>%</b>
                 	     <span style="float: right;">
                 	        <div style="color: gray; font-size: 12px;">
@@ -305,7 +320,7 @@
                 	           <%=nf.format(dto.getPrice()) %>
                 	        </div>
                 	     </span>
-                	  </a>
+                	  
                 	</td>
                 	
                 	<%
@@ -347,7 +362,7 @@
                 	  <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer; " class="goDetail">
                 	     <img alt="" src="shopsave/<%=dto.getPhoto()%>" class="photo">
                 	     <br>
-                	     <%=dto.getSangpum() %><br>
+                	     <%=dto.getSangpum() %></a><br>
                 	     <b style="color: red; " ><%=sale %>%</b>
                 	     <span style="float: right;">
                 	        <div style="color: gray; font-size: 12px;">
@@ -360,7 +375,7 @@
                 	           <%=nf.format(dto.getPrice()) %>
                 	        </div>
                 	     </span>
-                	  </a>
+                	  
                 	</td>
                 	
                 	<%
