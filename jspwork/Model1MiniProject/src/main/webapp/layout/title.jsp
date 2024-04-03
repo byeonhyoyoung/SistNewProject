@@ -17,10 +17,12 @@
   .carticon{
       font-size: 30px;
    }
+   
    div.cart{
      float: right;
      cursor: pointer;
    }
+   
    .cartcount{
    
       width: 30px;
@@ -30,13 +32,21 @@
       color: white;
       border-radius: 100px;
       z-index: 10;
-      left: -10px;
+      left: -15px;
       top: 10px;
       position: relative;
       text-align: center;
       line-height: 30px;
+      font-size: 0.5em;
    }
 </style>
+<script type="text/javascript">
+	$(function(){
+		$("div.cart").click(function(){
+			location.href="index.jsp?main=shop/mycart.jsp";
+		})
+	})
+</script>
 </head>
 <%
   //프로젝트 경로

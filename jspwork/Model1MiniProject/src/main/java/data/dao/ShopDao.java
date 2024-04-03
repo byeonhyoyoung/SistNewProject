@@ -149,7 +149,7 @@ public class ShopDao {
 	}
 	
 	//장바구니 목록 조회(cart)
-	public List<HashMap<String, String>> getCartList(String id)
+	public List<HashMap<String, String>> getCartList(String id) //String id 때문에 sql문 m.id=?추가됨
 	{
 		List<HashMap<String, String>> list=new ArrayList<HashMap<String,String>>();
 		
@@ -187,6 +187,29 @@ public class ShopDao {
 		
 		
 		return list;
+	}
+	
+	//삭제 //하나를 지우던 여러개 지우던 삭제메서드는 같다
+	public void deleteCart(String idx)
+	{
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="delete from cart where idx=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, idx);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(pstmt, conn);
+		}
+		
+		
 	}
 	
 }
